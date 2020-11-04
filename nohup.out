@@ -1,0 +1,24 @@
+test.py:行3: import: 未找到命令
+test.py:行4: import: 未找到命令
+test.py:行5: from: 未找到命令
+test.py:行6: from: 未找到命令
+test.py:行7: from: 未找到命令
+test.py:行8: from: 未找到命令
+test.py:行9: from: 未找到命令
+test.py:行10: from: 未找到命令
+test.py:行11: from: 未找到命令
+test.py:行12: from: 未找到命令
+test.py:行13: from: 未找到命令
+test.py:行14: import: 未找到命令
+test.py:行15: import: 未找到命令
+test.py:行16: import: 未找到命令
+test.py:行17: import: 未找到命令
+test.py:行18: import: 未找到命令
+test.py:行19: import: 未找到命令
+test.py:行21: from: 未找到命令
+test.py:行22: import: 未找到命令
+test.py:行23: import: 未找到命令
+test.py:行24: import: 未找到命令
+test.py:行25: import: 未找到命令
+test.py:行28: 未预期的符号 `(' 附近有语法错误
+test.py:行28: `class gp():  '

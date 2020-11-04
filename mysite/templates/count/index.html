@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>floor 2</title>
+<style type="text/css">
+    html{overflow:auto;}
+</style>
+</head>
+<body>
+<table width="80%" border="0">
+  <tr>
+    <td width="22%" align="left" valign="top"> {% for i in codes %} <a href="/index/?code={{ i.code }}&ipjipipijpijpijpijpoijpoijpoijpoijp=pijpoipoijpijpijp"> {{ i.title }}</a><br>
+      {% endfor %} </td>
+    <td width="78%" style="overflow:auto">
+	<script type="text/javascript">
+        function calcHeight(iframeElement){
+            var the_height=  iframeElement.contentWindow.document.body.scrollHeight;
+            iframeElement.height=  the_height;
+        }
+        </script>	
+	<table id="children1" width="100%" border="0">  
+    
+    <tr>
+      <td><iframe  src="/showAllX/?id=3&code={{ page_code }}&startTime=2020-11-2" onLoad="calcHeight(this);" height="100%" width="100%" id="frame_full" frameborder="0" scrolling="no" ></iframe></td>
+      <td><iframe  src="/showAllX/?id=1&code={{ page_code }}&startTime=2020-11-2" onLoad="calcHeight(this);" height="100%" width="100%" id="frame_full" frameborder="0" scrolling="no" ></iframe></td>
+
+  </tr>
+ 
+  <tr>
+    <td><iframe  src="/showAllX/?id=4&code={{ page_code }}&startTime=2020-11-2" onLoad="calcHeight(this);" height="100%" width="100%" id="frame_full" frameborder="0" scrolling="no" ></iframe></td>
+    <td><iframe  src="/showAllX/?id=5&code={{ page_code }}&startTime=2020-11-2" onLoad="calcHeight(this);" height="100%" width="100%" id="frame_full" frameborder="0" scrolling="no" ></iframe></td>
+    
+  </tr>
+
+  <tr>
+    <td><iframe  src="/showAllX/?id=6&code={{ page_code }}&startTime=2020-11-2" onLoad="calcHeight(this);" height="100%" width="100%" id="frame_full" frameborder="0" scrolling="no" ></iframe></td>
+    <td>：</td>
+  </tr>
+  <tr>
+    <td><iframe  src="/showAllX/?id=2&code={{ page_code }}&startTime=2020-11-2" onLoad="calcHeight(this);" height="100%" width="100%" id="frame_full" frameborder="0" scrolling="no" ></iframe></td>
+    <td>：</td>
+  </tr>
+
+</table>     
+      
+
+  </tr>
+</table>
+</body>
+</html>
