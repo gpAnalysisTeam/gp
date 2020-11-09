@@ -4,7 +4,8 @@ from count.model import common
 # Create your views here.
 def index(request):
     context = {} 
-    context['page_code'] =request.GET['code']
+    context['code'] =request.GET['code']
+    context['startTime'] = request.GET['startTime']
     context['codes'] =common.codes()
     return render(request,'count/index.html',context)    
 

@@ -5,7 +5,7 @@ import random
 import sys
 import pymongo
 import math
-from count.model.dbConfig import MongoConfig
+from config import mongodbConfig
 
 from pyecharts.charts import Page,Bar,WordCloud,EffectScatter,Scatter
 from pyecharts import options as opts
@@ -13,11 +13,11 @@ from pyecharts import options as opts
 from pyecharts.globals import ThemeType
 from pyecharts.faker import Faker
 
+connection = pymongo.MongoClient(mongodbConfig.host,mongodbConfig.port)[mongodbConfig.dbname]
+connection.authenticate(mongodbConfig.username,mongodbConfig.password,mechanism='SCRAM-SHA-1') 
 
 def codes():
-    connection = pymongo.MongoClient(MongoConfig.host)    
-    db = connection[MongoConfig.dbname]
-    collection = db['codes']
+    collection = connection['codes']
     codes = collection.find().sort([('id', pymongo.ASCENDING)]) 
     return codes
       
@@ -35,9 +35,7 @@ def common():
     return 'common test'
 
 def getOneDayData(code,startTime):    
-    connection = pymongo.MongoClient(MongoConfig.host)    
-    db = connection[MongoConfig.dbname]
-    collection = db[code]
+    collection = connection[code]
     rows = collection.find({"v0":{'$regex':startTime+".*"}}).sort([('id', pymongo.ASCENDING)]) 
     return rows
 def oneDataMinAndMaxPrice(code,startTime):
@@ -59,9 +57,7 @@ def oneDataMinAndMaxPrice(code,startTime):
 
 
 def getAllData(code):    
-    connection = pymongo.MongoClient(MongoConfig.host)    
-    db = connection[MongoConfig.dbname]
-    collection = db[code]
+    collection = connection[code]
     rows = collection.find().sort([('id', pymongo.ASCENDING)]) 
     data=[]
     for i in rows:        
@@ -184,7 +180,7 @@ def showAllX(id,code,flag=0):
     templete = 'count/'+str(id)+'.html'
     id= int(id)
     if id==1:
-        days = 20
+        days =10
         startStream = datetime.datetime.now() - datetime.timedelta(days)
         dayX = []
         dayY = []
@@ -212,10 +208,8 @@ def showAllX(id,code,flag=0):
         )
         bar.render('templates/'+templete)
     elif id==2:
-        connection = pymongo.MongoClient(MongoConfig.host)    
-        db = connection[MongoConfig.dbname]
-        collection = db['words_count']
-        rows = collection.find() 
+        conn = connection['words_count']
+        rows = conn.find() 
         words = []
         for x in rows:
             if x['title'] !='':    
@@ -346,4 +340,7 @@ def showAllX(id,code,flag=0):
         if flag==1:
             return sac
         sac.render('templates/'+templete)
+    elif id==7:
+        templete = ''
+
     return templete

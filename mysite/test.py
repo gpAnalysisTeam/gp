@@ -23,15 +23,14 @@ import uuid
 import json
 import datetime
 import pyecharts
+from config import mongodbConfig
 
 class gp():  
     keys=[]
-    host='192.168.90.62'
-    port=27017
-    dbname='gp'
-    connection = pymongo.MongoClient(host,port)    
-    db = connection[dbname]
-    collection = db['codes']
+
+    connection = pymongo.MongoClient(mongodbConfig.host,mongodbConfig.port)[mongodbConfig.dbname]
+    connection.authenticate(mongodbConfig.username,mongodbConfig.password,mechanism='SCRAM-SHA-1') 
+    collection = connection['codes']
     tbs = collection.find().sort([('id', pymongo.DESCENDING)]).limit(30)
     i = 0
     x1={}
@@ -57,9 +56,10 @@ class gp():
         #keys = urllib.quote(key)\
         driver = self.driver
         for key in self.keys:
-            for page in range(50):                
-                driver.get("http://vip.stock.finance.sina.com.cn/quotes_service/view/vMS_tradedetail.php?symbol="+key+"&page="+str(page+1))
-                #time.sleep(random.randint(1,2 ))
+            for page in range(10):     
+                url="http://vip.stock.finance.sina.com.cn/quotes_service/view/vMS_tradedetail.php?symbol="+key+"&page="+str(page+1)
+                driver.get(url)
+                time.sleep(random.randint(1,5 ))
                 tr = driver.find_elements_by_xpath(("//table[@class='datatbl']/tbody/tr"))
                 try:
                     for i in tr:
@@ -86,7 +86,7 @@ class gp():
         if row==None:       
             collection.insert(dict(item))
         else:
-            print("yet!")
+            print(key+"yet!")
 
 if __name__ == '__main__':
     gp = gp()
