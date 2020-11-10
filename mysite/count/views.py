@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from count.model import common
+from count.model import common,hot
 
 # Create your views here.
 def index(request):
@@ -19,7 +19,6 @@ def test(request):
         str=None        
     context['result'] = f"你搜索的内容为：{code}; response:{str}"
     return render(request,'count/mycharts.html',context)
-
    
 def showx(request):
     if 'id' in request.GET and 'code' in request.GET and 'startTime' in request.GET:
@@ -36,3 +35,9 @@ def showAllX(request):
         str = common.showAllX(id,code)
         return render(request,str)
 
+def showHotlX(request):
+    if 'id' in request.GET and 'code' in request.GET and 'startTime' in request.GET:
+        id= request.GET['id']
+        code= request.GET['code']
+        str = hot.showHotX(id,code)
+        return render(request,str)

@@ -27,9 +27,9 @@ from config import mongodbConfig
 
 class gp():  
     keys=[]
-
     connection = pymongo.MongoClient(mongodbConfig.host,mongodbConfig.port)[mongodbConfig.dbname]
     connection.authenticate(mongodbConfig.username,mongodbConfig.password,mechanism='SCRAM-SHA-1') 
+    db = connection
     collection = connection['codes']
     tbs = collection.find().sort([('id', pymongo.DESCENDING)]).limit(30)
     i = 0
@@ -56,10 +56,10 @@ class gp():
         #keys = urllib.quote(key)\
         driver = self.driver
         for key in self.keys:
-            for page in range(10):     
+            for page in range(1):     
                 url="http://vip.stock.finance.sina.com.cn/quotes_service/view/vMS_tradedetail.php?symbol="+key+"&page="+str(page+1)
                 driver.get(url)
-                time.sleep(random.randint(1,5 ))
+                time.sleep(random.randint(1,2 ))
                 tr = driver.find_elements_by_xpath(("//table[@class='datatbl']/tbody/tr"))
                 try:
                     for i in tr:

@@ -184,7 +184,7 @@ def showAllX(id,code,flag=0):
         startStream = datetime.datetime.now() - datetime.timedelta(days)
         dayX = []
         dayY = []
-        for i in range(days+1):
+        for i in range(days+2):
             try:
                 queryTime = (startStream+datetime.timedelta(i))
                 queryStr = str(queryTime.year)+'-'+str(queryTime.month)+'-'+str(queryTime.day)
@@ -254,7 +254,7 @@ def showAllX(id,code,flag=0):
         startStream = datetime.datetime.now() - datetime.timedelta(days)
         dayX = []
         dayY = []
-        for i in range(days+1):
+        for i in range(days+2):
             try:
                 queryTime = (startStream+datetime.timedelta(i))
                 queryStr = str(queryTime.year)+'-'+str(queryTime.month)+'-'+str(queryTime.day)
@@ -280,7 +280,7 @@ def showAllX(id,code,flag=0):
         startStream = datetime.datetime.now() - datetime.timedelta(days)
         dayX = []
         dayY = []
-        for i in range(days+1):
+        for i in range(days+2):
             try:
                 queryTime = (startStream+datetime.timedelta(i))
                 queryStr = str(queryTime.year)+'-'+str(queryTime.month)+'-'+str(queryTime.day)

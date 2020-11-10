@@ -22,4 +22,5 @@ urlpatterns = [
     path('index/', views.index),
     path('showx/', views.showx),
     path('showAllX/', views.showAllX),    
+    path('showHotX/', views.showHotlX),    
 ]
