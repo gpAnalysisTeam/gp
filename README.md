@@ -9,3 +9,5 @@ gp analyze system
 2,mysite ：dgango web,
     运行：执行命令python3 /root/fenxi/mysite/manage.py runserver 0.0.0.0:8000 --noreload 
 
+
+test 
