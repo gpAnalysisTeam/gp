@@ -7,6 +7,8 @@ import pymongo
 import math
 from config import mongodbConfig
 
+from bson.objectid import ObjectId
+
 from pyecharts.charts import Page,Bar,WordCloud,EffectScatter,Scatter
 from pyecharts import options as opts
     # 内置主题类型可查看 pyecharts.globals.ThemeType
@@ -15,6 +17,11 @@ from pyecharts.faker import Faker
 
 connection = pymongo.MongoClient(mongodbConfig.host,mongodbConfig.port)[mongodbConfig.dbname]
 connection.authenticate(mongodbConfig.username,mongodbConfig.password,mechanism='SCRAM-SHA-1') 
+
+def codes():
+    collection = connection['codes']
+    codes = collection.find().sort([('id', pymongo.ASCENDING)]) 
+    return codes
 
 def getOneDayData(code,startTime):    
     collection = connection[code]
@@ -36,21 +43,24 @@ def oneDataMinAndMaxPrice(code,startTime):
         return None
     else:
         return {'min':min,'max':max}
-def getAllData(code):    
+def getAllData(code,startTime='2020-6-1'):    
     collection = connection[code]
     rows = collection.find().sort([('id', pymongo.ASCENDING)]) 
     data=[]
-    for i in rows:        
+    for i in rows:      
+        if 'pubtime' not in i.keys():
+            timeSteam= datetime.datetime.strptime(i['v0'],'%Y-%m-%d %H:%M:%S')
+            v0time= int(time.mktime(timeSteam.timetuple()))
+            collection.update({'_id': ObjectId(i['_id'])},  {'$set': {"pubtime": v0time}}) 
         if float(i['v1'])>2:
             data.append(i)
     return data
 def showHotX(id,code,flag=0):
     #publish 
-    templete = 'hot/'+str(id)+'.html'
-    id= int(id)
-    if id==1:
-        templete = ''      
-    elif id==4:
-        templete = ''
-
-    return templete
+    return 1
+def reset(code,mins):    
+    codeList = codes() 
+    for code in codeList:
+        getAllData(code['code'])
+    return [code,mins]
+#reset('','2011-11-5')

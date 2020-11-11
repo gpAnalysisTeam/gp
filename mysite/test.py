@@ -23,7 +23,7 @@ import uuid
 import json
 import datetime
 import pyecharts
-from config import mongodbConfig
+from config import mongodbConfig,sysConfig
 
 class gp():  
     keys=[]
@@ -56,10 +56,10 @@ class gp():
         #keys = urllib.quote(key)\
         driver = self.driver
         for key in self.keys:
-            for page in range(1):     
+            for page in range(2):     
                 url="http://vip.stock.finance.sina.com.cn/quotes_service/view/vMS_tradedetail.php?symbol="+key+"&page="+str(page+1)
                 driver.get(url)
-                time.sleep(random.randint(1,2 ))
+                time.sleep(random.randint(1,3 ))
                 tr = driver.find_elements_by_xpath(("//table[@class='datatbl']/tbody/tr"))
                 try:
                     for i in tr:
@@ -73,10 +73,12 @@ class gp():
                         row['v0']=str(datetime.datetime.now().year)+'-'+str(datetime.datetime.now().month)+'-'+str(datetime.datetime.now().day)+' '+mm[0].text
                         row['v6']=mm[1].text
                         row['v7']=mm[0].text
+                        timeSteam= datetime.datetime.strptime(row['v0'],'%Y-%m-%d %H:%M:%S')
+                        row['pubtime']  = int(time.mktime(timeSteam.timetuple()))
                         self.data_insert(key,row)
                 except:
                     continue                
-
+#1604991603.0
     def data_insert(self,key,item):       
         collist =  self.db.list_collection_names()
         if key not in collist:
@@ -91,8 +93,14 @@ class gp():
 if __name__ == '__main__':
     gp = gp()
     i=0
-    while True:
-        time.sleep(3)
+    runtype = sysConfig.runWay # always or onetimes
+    if runtype=='always':
+        while True:
+            time.sleep(3)
+            i=i+1
+            print(i)
+            gp.start_getpage_requests()
+    elif runtype=='onetimes':
         i=i+1
         print(i)
         gp.start_getpage_requests()
