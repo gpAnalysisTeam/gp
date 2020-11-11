@@ -10,6 +10,8 @@ gp analyze system
     运行：执行命令python3 /root/fenxi/mysite/manage.py runserver 0.0.0.0:8000 --noreload 
 
 
-test 
+QQ交流群：659642073
+![Image text](https://github.com/gpAnalysisTeam/gp/blob/main/QQ_20201111102324.png)
 
-QQ交流群
+
+
