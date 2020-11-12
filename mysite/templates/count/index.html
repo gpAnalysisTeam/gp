@@ -11,8 +11,14 @@
 <table width="101%" border="0">
   <tr>
     <td width="11%" align="left" valign="top"> {% for i in codes %} <a href="/index/?code={{ i.code }}&startTime={{startTime}}&ipjipipijpijpijpijpoijpoijpoijpoijp=pijpoipoijpijpijp"> {{ i.title }}</a><br>
-    {% endfor %} </td>
-    <td width="89%" style="overflow:auto">
+    {% endfor %} 
+  <hr>
+  <br/>
+  
+  {% for i in industryHot %} <a href="http://vip.stock.finance.sina.com.cn/mkt/# {{ i.industry_type }}"> {{ i.industry }}</a>  {{ i.percent }}<br>
+  {% endfor %} 
+  </td>
+    <td width="89%" align="left" valign="top" style="overflow:auto">
 	<script type="text/javascript">
         function calcHeight(iframeElement){
             var the_height=  iframeElement.contentWindow.document.body.scrollHeight;
@@ -24,13 +30,11 @@
     <tr>
       <td width="49%"><iframe  src="/showAllX/?id=3&code={{ code }}&startTime={{ startTime }}" onLoad="calcHeight(this);" height="100%" width="100%" id="frame_full" frameborder="0" scrolling="no" ></iframe></td>
       <td width="51%"><iframe  src="/showAllX/?id=1&code={{ code }}&startTime={{ startTime }}" onLoad="calcHeight(this);" height="100%" width="100%" id="frame_full" frameborder="0" scrolling="no" ></iframe></td>
-
   </tr>
  
   <tr>
     <td><iframe  src="/showAllX/?id=4&code={{ code }}&startTime={{ start_time }}" onLoad="calcHeight(this);" height="100%" width="100%" id="frame_full" frameborder="0" scrolling="no" ></iframe></td>
     <td><iframe  src="/showAllX/?id=5&code={{ code }}&startTime={{ start_time }}" onLoad="calcHeight(this);" height="100%" width="100%" id="frame_full" frameborder="0" scrolling="no" ></iframe></td>
-    
   </tr>
 
   <tr>
@@ -41,7 +45,6 @@
     <td><iframe  src="/showAllX/?id=2&code={{ code }}&startTime={{ start_time }}" onLoad="calcHeight(this);" height="100%" width="100%" id="frame_full" frameborder="0" scrolling="no" ></iframe></td>
     <td>：</td>
   </tr>
-
 </table>     
       
 

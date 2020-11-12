@@ -7,6 +7,7 @@ def index(request):
     context['code'] =request.GET['code']
     context['startTime'] = request.GET['startTime']
     context['codes'] =common.codes()
+    context['industryHot'] =common.industryHot()
     return render(request,'count/index.html',context)    
 
 def test(request):
