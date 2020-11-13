@@ -17,6 +17,8 @@
   
   {% for i in industryHot %} <a href="http://vip.stock.finance.sina.com.cn/mkt/# {{ i.industry_type }}"> {{ i.industry }}</a>  {{ i.percent }}<br>
   {% endfor %} 
+
+
   </td>
     <td width="89%" align="left" valign="top" style="overflow:auto">
 	<script type="text/javascript">
@@ -39,7 +41,13 @@
 
   <tr>
     <td><iframe  src="/showAllX/?id=6&code={{ code }}&startTime={{ start_time }}" onLoad="calcHeight(this);" height="100%" width="100%" id="frame_full" frameborder="0" scrolling="no" ></iframe></td>
-    <td>：</td>
+    <td>
+      {% for i in wenziWords %}  
+       {{ i.0 }} :{{ i.1 }} <br>
+       {{ i.3}} <br> <br>
+      {% endfor %} 
+
+    </td>
   </tr>
   <tr>
     <td><iframe  src="/showAllX/?id=2&code={{ code }}&startTime={{ start_time }}" onLoad="calcHeight(this);" height="100%" width="100%" id="frame_full" frameborder="0" scrolling="no" ></iframe></td>
