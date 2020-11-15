@@ -16,6 +16,7 @@ release：第一个正式版本。
 test表示测试版本。
 
 QQ交流群：659642073
+<br>
 <img src="https://github.com/gpAnalysisTeam/gp/blob/main/QQ_20201111102324.png" width="260px"/> 
 
 
