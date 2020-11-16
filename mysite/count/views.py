@@ -11,7 +11,7 @@ def index(request):
     context['codes'] =common.codes()
     context['industryHot'] =common.industryHot()
     #
-    context['wenziWords'] = datas.datas().words_wenziList(context['code'])
+    context['wenziWords'] = datas.datas().wordsWenziList(context['code'])
     return render(request,'count/index.html',context)    
 
 def test(request):

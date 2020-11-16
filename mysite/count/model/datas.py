@@ -47,7 +47,7 @@ class datas():
 
     def group15(self,code):
         connect = db().conn()[code]
-        rows = connect.find().sort([('pubtime', pymongo.ASCENDING)])
+        rows = connect.find().sort([('pubtime', pymongo.DESCENDING)])
         ##############group ###########################
         data={}
         for row in rows:
@@ -58,27 +58,31 @@ class datas():
                 data[dataMinuteGroup]=[{"pubtime":row['pubtime'],"price":row['v1'],"volumn":row['v5']}]
         return data
 
-    def words_wenziList(self,code):
-        modelList = self.get4TapsBy15Minute(code)
+    def wordsWenziList(self,code):
         connect = db().conn()['words_wenzi']
+        modelList = self.get4TapsBy15Minute(code)
         modelSelect = modelList[0][1]
        # modelSelect=[4,3,2,1]
         rows = connect.find()
         data=[]
+        times=0
         for row in rows:
             q=[]
             for indes,ch in enumerate(str(row['pattern'])):
                 try:
                     q.append(int(ch))
                 except:
-                    continue   
-            if q and 'pattern' in row.keys() and 'words' in row.keys() and 'des' in row.keys():             
+                    continue               
+            if q and 'pattern' in row.keys() and 'words' in row.keys() :                       
                 releas = euclidean(modelSelect, q)
+                if 'des' not in row.keys():   
+                       row['des'] = row['words']
                 data.append([releas,row['pattern'],row['words'],row['des']])
-        x = np.array(data)  
-        idex=np.lexsort([x [:,0]])
-        sorted_data = x [idex, :]
-        return sorted_data 
+                times=times+1
+                if times==6 :
+                    break
+        data.sort(key = lambda data:data[0], reverse=True)
+        return data 
 
     def get4TapsBy15Minute(self,code):
         #### get price and group by 15minute

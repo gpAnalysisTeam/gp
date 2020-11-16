@@ -56,7 +56,7 @@ class gp():
         #keys = urllib.quote(key)\
         driver = self.driver
         for key in self.keys:
-            for page in range(20):     
+            for page in range(0,2):     
                 url="http://vip.stock.finance.sina.com.cn/quotes_service/view/vMS_tradedetail.php?symbol="+key+"&page="+str(page+1)
                 driver.get(url)
                 time.sleep(random.randint(1,3 ))
