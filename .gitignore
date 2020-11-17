@@ -5,6 +5,7 @@ __pycache__/
 
 # C extensions
 *.so
+./mysite/templates/count/\d.html
 
 # Distribution / packaging
 .Python

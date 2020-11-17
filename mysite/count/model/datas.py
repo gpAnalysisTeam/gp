@@ -8,6 +8,7 @@ import numpy as np
 
 import math
 from config import mongodbConfig
+from collections import Counter
 
 
 class db():
@@ -30,7 +31,7 @@ def euclidean(p, q):
     e = sum([(p[i] - q[i]) ** 2 for i in range(same)])
     return 1 / (1 + e ** .5)
 
-class datas():
+class datas15():
     minuteArr = [m for m in range(60)]
     minuteGroup =list_split(minuteArr,15)
     def getPieceNameByTime(self,timesteam):       
@@ -47,7 +48,7 @@ class datas():
 
     def group15(self,code):
         connect = db().conn()[code]
-        rows = connect.find().sort([('pubtime', pymongo.DESCENDING)])
+        rows = connect.find().sort([('pubtime', pymongo.ASCENDING)])
         ##############group ###########################
         data={}
         for row in rows:
@@ -61,7 +62,14 @@ class datas():
     def wordsWenziList(self,code):
         connect = db().conn()['words_wenzi']
         modelList = self.get4TapsBy15Minute(code)
-        modelSelect = modelList[0][1]
+        modelLen = len(modelList)
+
+        for i in range(1,modelLen):
+            modelKeyCount = Counter(modelList[modelLen-i][1])
+            if modelKeyCount['0']<2:
+                modelSelect = modelList[modelLen-i][1]
+                break
+
        # modelSelect=[4,3,2,1]
         rows = connect.find()
         data=[]
@@ -82,7 +90,7 @@ class datas():
                 if times==6 :
                     break
         data.sort(key = lambda data:data[0], reverse=True)
-        return data 
+        return {'data':data,'modelList':modelList} 
 
     def get4TapsBy15Minute(self,code):
         #### get price and group by 15minute

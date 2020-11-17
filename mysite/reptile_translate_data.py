@@ -31,7 +31,7 @@ class gp():
     connection.authenticate(mongodbConfig.username,mongodbConfig.password,mechanism='SCRAM-SHA-1') 
     db = connection
     collection = connection['codes']
-    tbs = collection.find().sort([('id', pymongo.DESCENDING)]).limit(30)
+    tbs = collection.find().sort([('task', pymongo.ASCENDING)]).limit(100)
     i = 0
     x1={}
     for x in tbs:
@@ -59,7 +59,7 @@ class gp():
             for page in range(0,2):     
                 url="http://vip.stock.finance.sina.com.cn/quotes_service/view/vMS_tradedetail.php?symbol="+key+"&page="+str(page+1)
                 driver.get(url)
-                time.sleep(random.randint(1,3 ))
+                time.sleep(random.randint(1,2 ))
                 tr = driver.find_elements_by_xpath(("//table[@class='datatbl']/tbody/tr"))
                 try:
                     for i in tr:
