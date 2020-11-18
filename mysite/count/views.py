@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from count.model import common,hot
+from count.model import datas
+
 
 # Create your views here.
 def index(request):
@@ -7,6 +9,11 @@ def index(request):
     context['code'] =request.GET['code']
     context['startTime'] = request.GET['startTime']
     context['codes'] =common.codes()
+    context['industryHot'] =common.industryHot()
+    #
+    data15= datas.datas15().wordsWenziList(context['code'])
+    context['wenziWords'] =data15['data']
+    context['modelList'] =data15['modelList']
     return render(request,'count/index.html',context)    
 
 def test(request):

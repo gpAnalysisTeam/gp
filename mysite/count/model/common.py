@@ -16,10 +16,23 @@ from pyecharts.faker import Faker
 connection = pymongo.MongoClient(mongodbConfig.host,mongodbConfig.port)[mongodbConfig.dbname]
 connection.authenticate(mongodbConfig.username,mongodbConfig.password,mechanism='SCRAM-SHA-1') 
 
+def industryHot():
+    collection = connection['industry']
+    industryList = collection.find().sort([('v0', pymongo.DESCENDING),('percent', pymongo.DESCENDING)]).limit(9) 
+    return industryList
+
 def codes():
     collection = connection['codes']
-    codes = collection.find().sort([('id', pymongo.ASCENDING)]) 
-    return codes
+    codes = collection.find({'industry':None}).sort([('id', pymongo.DESCENDING)]) 
+    data=[]
+    for code in codes:
+        if 'name' in code.keys():
+            code['title']=code['name']
+        if 'title' not in code.keys() and 'name' not in code.keys():
+            continue
+        dick={'title':code['title'],'code':code['code']}
+        data.append(dick)
+    return data
       
 def common():
     bar = (

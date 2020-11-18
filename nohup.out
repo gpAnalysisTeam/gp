@@ -22,3 +22,467 @@ test.py:行24: import: 未找到命令
 test.py:行25: import: 未找到命令
 test.py:行28: 未预期的符号 `(' 附近有语法错误
 test.py:行28: `class gp():  '
+[13/Nov/2020 09:42:57] "GET /index/?code=sh601997&startTime=2020-11-6&ipjipipijpijpijpijpoijpoijpoijpoijp=pijpoipoijpijpijp HTTP/1.0" 200 4876
+[13/Nov/2020 09:43:04] "GET /index/?code=sh601997&startTime=2020-11-6&ipjipipijpijpijpijpoijpoijpoijpoijp=pijpoipoijpijpijp HTTP/1.1" 200 4876
+/usr/local/lib/python3.6/site-packages/pyecharts/charts/chart.py:14: PendingDeprecationWarning: pyecharts 所有图表类型将在 v1.9.0 版本开始强制使用 ChartItem 进行数据项配置 :)
+  super().__init__(init_opts=init_opts)
+/usr/local/lib/python3.6/site-packages/pyecharts/charts/chart.py:14: PendingDeprecationWarning: pyecharts 所有图表类型将在 v1.9.0 版本开始强制使用 ChartItem 进行数据项配置 :)
+  super().__init__(init_opts=init_opts)
+Internal Server Error: /showAllX/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.6/site-packages/django/core/handlers/base.py", line 179, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/root/gp/mysite/count/views.py", line 40, in showAllX
+    str = common.showAllX(id,code)
+  File "/root/gp/mysite/count/model/common.py", line 314, in showAllX
+    ).render('templates/'+templete)
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/charts/base.py", line 73, in render
+    return engine.render(self, path, template_name, env, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/render/engine.py", line 72, in render
+    template_name=template_name, chart=chart, path=path, **kwargs
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/render/engine.py", line 55, in render_chart_to_file
+    write_utf8_html_file(path, html)
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/render/engine.py", line 14, in write_utf8_html_file
+    with open(file_name, "w+", encoding="utf-8") as html_file:
+FileNotFoundError: [Errno 2] No such file or directory: 'templates/count/5.html'
+[13/Nov/2020 09:43:07] "GET /showAllX/?id=5&code=sh601997&startTime= HTTP/1.1" 500 101500
+/usr/local/lib/python3.6/site-packages/pyecharts/charts/chart.py:14: PendingDeprecationWarning: pyecharts 所有图表类型将在 v1.9.0 版本开始强制使用 ChartItem 进行数据项配置 :)
+  super().__init__(init_opts=init_opts)
+Internal Server Error: /showAllX/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.6/site-packages/django/core/handlers/base.py", line 179, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/root/gp/mysite/count/views.py", line 40, in showAllX
+    str = common.showAllX(id,code)
+  File "/root/gp/mysite/count/model/common.py", line 222, in showAllX
+    bar.render('templates/'+templete)
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/charts/base.py", line 73, in render
+    return engine.render(self, path, template_name, env, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/render/engine.py", line 72, in render
+    template_name=template_name, chart=chart, path=path, **kwargs
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/render/engine.py", line 55, in render_chart_to_file
+    write_utf8_html_file(path, html)
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/render/engine.py", line 14, in write_utf8_html_file
+    with open(file_name, "w+", encoding="utf-8") as html_file:
+FileNotFoundError: [Errno 2] No such file or directory: 'templates/count/1.html'
+[13/Nov/2020 09:43:08] "GET /showAllX/?id=1&code=sh601997&startTime=2020-11-6 HTTP/1.1" 500 102738
+Internal Server Error: /showAllX/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.6/site-packages/django/core/handlers/base.py", line 179, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/root/gp/mysite/count/views.py", line 40, in showAllX
+    str = common.showAllX(id,code)
+  File "/root/gp/mysite/count/model/common.py", line 355, in showAllX
+    sac.render('templates/'+templete)
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/charts/base.py", line 73, in render
+    return engine.render(self, path, template_name, env, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/render/engine.py", line 72, in render
+    template_name=template_name, chart=chart, path=path, **kwargs
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/render/engine.py", line 55, in render_chart_to_file
+    write_utf8_html_file(path, html)
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/render/engine.py", line 14, in write_utf8_html_file
+    with open(file_name, "w+", encoding="utf-8") as html_file:
+FileNotFoundError: [Errno 2] No such file or directory: 'templates/count/6.html'
+[13/Nov/2020 09:43:09] "GET /showAllX/?id=6&code=sh601997&startTime= HTTP/1.1" 500 120158
+/usr/local/lib/python3.6/site-packages/pyecharts/charts/chart.py:14: PendingDeprecationWarning: pyecharts 所有图表类型将在 v1.9.0 版本开始强制使用 ChartItem 进行数据项配置 :)
+  super().__init__(init_opts=init_opts)
+Internal Server Error: /showAllX/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.6/site-packages/django/core/handlers/base.py", line 179, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/root/gp/mysite/count/views.py", line 40, in showAllX
+    str = common.showAllX(id,code)
+  File "/root/gp/mysite/count/model/common.py", line 263, in showAllX
+    bar.render('templates/'+templete)
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/charts/base.py", line 73, in render
+    return engine.render(self, path, template_name, env, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/render/engine.py", line 72, in render
+    template_name=template_name, chart=chart, path=path, **kwargs
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/render/engine.py", line 55, in render_chart_to_file
+    write_utf8_html_file(path, html)
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/render/engine.py", line 14, in write_utf8_html_file
+    with open(file_name, "w+", encoding="utf-8") as html_file:
+FileNotFoundError: [Errno 2] No such file or directory: 'templates/count/3.html'
+[13/Nov/2020 09:43:11] "GET /showAllX/?id=3&code=sh601997&startTime=2020-11-6 HTTP/1.1" 500 110211
+/usr/local/lib/python3.6/site-packages/pyecharts/charts/chart.py:14: PendingDeprecationWarning: pyecharts 所有图表类型将在 v1.9.0 版本开始强制使用 ChartItem 进行数据项配置 :)
+  super().__init__(init_opts=init_opts)
+Internal Server Error: /showAllX/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.6/site-packages/django/core/handlers/base.py", line 179, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/root/gp/mysite/count/views.py", line 40, in showAllX
+    str = common.showAllX(id,code)
+  File "/root/gp/mysite/count/model/common.py", line 236, in showAllX
+    worldcloud.render('templates/'+templete)
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/charts/base.py", line 73, in render
+    return engine.render(self, path, template_name, env, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/render/engine.py", line 72, in render
+    template_name=template_name, chart=chart, path=path, **kwargs
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/render/engine.py", line 55, in render_chart_to_file
+    write_utf8_html_file(path, html)
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/render/engine.py", line 14, in write_utf8_html_file
+    with open(file_name, "w+", encoding="utf-8") as html_file:
+FileNotFoundError: [Errno 2] No such file or directory: 'templates/count/2.html'
+[13/Nov/2020 09:43:12] "GET /showAllX/?id=2&code=sh601997&startTime= HTTP/1.1" 500 100913
+/usr/local/lib/python3.6/site-packages/pyecharts/charts/chart.py:14: PendingDeprecationWarning: pyecharts 所有图表类型将在 v1.9.0 版本开始强制使用 ChartItem 进行数据项配置 :)
+  super().__init__(init_opts=init_opts)
+Internal Server Error: /showAllX/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.6/site-packages/django/core/handlers/base.py", line 179, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/root/gp/mysite/count/views.py", line 40, in showAllX
+    str = common.showAllX(id,code)
+  File "/root/gp/mysite/count/model/common.py", line 288, in showAllX
+    ).render('templates/'+templete)
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/charts/base.py", line 73, in render
+    return engine.render(self, path, template_name, env, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/render/engine.py", line 72, in render
+    template_name=template_name, chart=chart, path=path, **kwargs
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/render/engine.py", line 55, in render_chart_to_file
+    write_utf8_html_file(path, html)
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/render/engine.py", line 14, in write_utf8_html_file
+    with open(file_name, "w+", encoding="utf-8") as html_file:
+FileNotFoundError: [Errno 2] No such file or directory: 'templates/count/4.html'
+[13/Nov/2020 09:43:13] "GET /showAllX/?id=4&code=sh601997&startTime= HTTP/1.1" 500 101649
+[13/Nov/2020 09:44:25] "GET /index/?id=3&code=sh601997&startTime=2020-11-6 HTTP/1.1" 200 4876
+Not Found: /apple-touch-icon-120x120-precomposed.png
+[13/Nov/2020 09:44:26] "GET /apple-touch-icon-120x120-precomposed.png HTTP/1.1" 404 2489
+Not Found: /apple-touch-icon-120x120.png
+[13/Nov/2020 09:44:26] "GET /apple-touch-icon-120x120.png HTTP/1.1" 404 2453
+Not Found: /apple-touch-icon-precomposed.png
+[13/Nov/2020 09:44:26] "GET /apple-touch-icon-precomposed.png HTTP/1.1" 404 2465
+Not Found: /apple-touch-icon.png
+[13/Nov/2020 09:44:26] "GET /apple-touch-icon.png HTTP/1.1" 404 2429
+Not Found: /favicon.ico
+[13/Nov/2020 09:44:26] "GET /favicon.ico HTTP/1.1" 404 2402
+Not Found: /apple-touch-icon-120x120-precomposed.png
+[13/Nov/2020 09:44:26] "GET /apple-touch-icon-120x120-precomposed.png HTTP/1.1" 404 2489
+Not Found: /apple-touch-icon-120x120.png
+[13/Nov/2020 09:44:26] "GET /apple-touch-icon-120x120.png HTTP/1.1" 404 2453
+Not Found: /apple-touch-icon-precomposed.png
+[13/Nov/2020 09:44:27] "GET /apple-touch-icon-precomposed.png HTTP/1.1" 404 2465
+Not Found: /apple-touch-icon.png
+[13/Nov/2020 09:44:27] "GET /apple-touch-icon.png HTTP/1.1" 404 2429
+Not Found: /favicon.ico
+[13/Nov/2020 09:44:27] "GET /favicon.ico HTTP/1.1" 404 2402
+[13/Nov/2020 09:44:37] "GET /index/?code=sh601997&startTime=2020-11-6&ipjipipijpijpijpijpoijpoijpoijpoijp=pijpoipoijpijpijp HTTP/1.1" 200 4876
+/usr/local/lib/python3.6/site-packages/pyecharts/charts/chart.py:14: PendingDeprecationWarning: pyecharts 所有图表类型将在 v1.9.0 版本开始强制使用 ChartItem 进行数据项配置 :)
+  super().__init__(init_opts=init_opts)
+/usr/local/lib/python3.6/site-packages/pyecharts/charts/chart.py:14: PendingDeprecationWarning: pyecharts 所有图表类型将在 v1.9.0 版本开始强制使用 ChartItem 进行数据项配置 :)
+  super().__init__(init_opts=init_opts)
+Internal Server Error: /showAllX/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.6/site-packages/django/core/handlers/base.py", line 179, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/root/gp/mysite/count/views.py", line 40, in showAllX
+    str = common.showAllX(id,code)
+  File "/root/gp/mysite/count/model/common.py", line 222, in showAllX
+    bar.render('templates/'+templete)
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/charts/base.py", line 73, in render
+    return engine.render(self, path, template_name, env, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/render/engine.py", line 72, in render
+    template_name=template_name, chart=chart, path=path, **kwargs
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/render/engine.py", line 55, in render_chart_to_file
+    write_utf8_html_file(path, html)
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/render/engine.py", line 14, in write_utf8_html_file
+    with open(file_name, "w+", encoding="utf-8") as html_file:
+FileNotFoundError: [Errno 2] No such file or directory: 'templates/count/1.html'
+[13/Nov/2020 09:44:38] "GET /showAllX/?id=1&code=sh601997&startTime=2020-11-6 HTTP/1.1" 500 102710
+/usr/local/lib/python3.6/site-packages/pyecharts/charts/chart.py:14: PendingDeprecationWarning: pyecharts 所有图表类型将在 v1.9.0 版本开始强制使用 ChartItem 进行数据项配置 :)
+  super().__init__(init_opts=init_opts)
+Internal Server Error: /showAllX/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.6/site-packages/django/core/handlers/base.py", line 179, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/root/gp/mysite/count/views.py", line 40, in showAllX
+    str = common.showAllX(id,code)
+  File "/root/gp/mysite/count/model/common.py", line 236, in showAllX
+    worldcloud.render('templates/'+templete)
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/charts/base.py", line 73, in render
+    return engine.render(self, path, template_name, env, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/render/engine.py", line 72, in render
+    template_name=template_name, chart=chart, path=path, **kwargs
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/render/engine.py", line 55, in render_chart_to_file
+    write_utf8_html_file(path, html)
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/render/engine.py", line 14, in write_utf8_html_file
+    with open(file_name, "w+", encoding="utf-8") as html_file:
+FileNotFoundError: [Errno 2] No such file or directory: 'templates/count/2.html'
+[13/Nov/2020 09:44:39] "GET /showAllX/?id=2&code=sh601997&startTime= HTTP/1.1" 500 100881
+/usr/local/lib/python3.6/site-packages/pyecharts/charts/chart.py:14: PendingDeprecationWarning: pyecharts 所有图表类型将在 v1.9.0 版本开始强制使用 ChartItem 进行数据项配置 :)
+  super().__init__(init_opts=init_opts)
+Internal Server Error: /showAllX/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.6/site-packages/django/core/handlers/base.py", line 179, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/root/gp/mysite/count/views.py", line 40, in showAllX
+    str = common.showAllX(id,code)
+  File "/root/gp/mysite/count/model/common.py", line 288, in showAllX
+    ).render('templates/'+templete)
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/charts/base.py", line 73, in render
+    return engine.render(self, path, template_name, env, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/render/engine.py", line 72, in render
+    template_name=template_name, chart=chart, path=path, **kwargs
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/render/engine.py", line 55, in render_chart_to_file
+    write_utf8_html_file(path, html)
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/render/engine.py", line 14, in write_utf8_html_file
+    with open(file_name, "w+", encoding="utf-8") as html_file:
+FileNotFoundError: [Errno 2] No such file or directory: 'templates/count/4.html'
+[13/Nov/2020 09:44:39] "GET /showAllX/?id=4&code=sh601997&startTime= HTTP/1.1" 500 101617
+/usr/local/lib/python3.6/site-packages/pyecharts/charts/chart.py:14: PendingDeprecationWarning: pyecharts 所有图表类型将在 v1.9.0 版本开始强制使用 ChartItem 进行数据项配置 :)
+  super().__init__(init_opts=init_opts)
+Internal Server Error: /showAllX/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.6/site-packages/django/core/handlers/base.py", line 179, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/root/gp/mysite/count/views.py", line 40, in showAllX
+    str = common.showAllX(id,code)
+  File "/root/gp/mysite/count/model/common.py", line 314, in showAllX
+    ).render('templates/'+templete)
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/charts/base.py", line 73, in render
+    return engine.render(self, path, template_name, env, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/render/engine.py", line 72, in render
+    template_name=template_name, chart=chart, path=path, **kwargs
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/render/engine.py", line 55, in render_chart_to_file
+    write_utf8_html_file(path, html)
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/render/engine.py", line 14, in write_utf8_html_file
+    with open(file_name, "w+", encoding="utf-8") as html_file:
+FileNotFoundError: [Errno 2] No such file or directory: 'templates/count/5.html'
+[13/Nov/2020 09:44:40] "GET /showAllX/?id=5&code=sh601997&startTime= HTTP/1.1" 500 101470
+/usr/local/lib/python3.6/site-packages/pyecharts/charts/chart.py:14: PendingDeprecationWarning: pyecharts 所有图表类型将在 v1.9.0 版本开始强制使用 ChartItem 进行数据项配置 :)
+  super().__init__(init_opts=init_opts)
+Internal Server Error: /showAllX/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.6/site-packages/django/core/handlers/base.py", line 179, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/root/gp/mysite/count/views.py", line 40, in showAllX
+    str = common.showAllX(id,code)
+  File "/root/gp/mysite/count/model/common.py", line 263, in showAllX
+    bar.render('templates/'+templete)
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/charts/base.py", line 73, in render
+    return engine.render(self, path, template_name, env, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/render/engine.py", line 72, in render
+    template_name=template_name, chart=chart, path=path, **kwargs
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/render/engine.py", line 55, in render_chart_to_file
+    write_utf8_html_file(path, html)
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/render/engine.py", line 14, in write_utf8_html_file
+    with open(file_name, "w+", encoding="utf-8") as html_file:
+FileNotFoundError: [Errno 2] No such file or directory: 'templates/count/3.html'
+[13/Nov/2020 09:44:42] "GET /showAllX/?id=3&code=sh601997&startTime=2020-11-6 HTTP/1.1" 500 110179
+Internal Server Error: /showAllX/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.6/site-packages/django/core/handlers/base.py", line 179, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/root/gp/mysite/count/views.py", line 40, in showAllX
+    str = common.showAllX(id,code)
+  File "/root/gp/mysite/count/model/common.py", line 355, in showAllX
+    sac.render('templates/'+templete)
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/charts/base.py", line 73, in render
+    return engine.render(self, path, template_name, env, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/render/engine.py", line 72, in render
+    template_name=template_name, chart=chart, path=path, **kwargs
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/render/engine.py", line 55, in render_chart_to_file
+    write_utf8_html_file(path, html)
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/render/engine.py", line 14, in write_utf8_html_file
+    with open(file_name, "w+", encoding="utf-8") as html_file:
+FileNotFoundError: [Errno 2] No such file or directory: 'templates/count/6.html'
+[13/Nov/2020 09:44:44] "GET /showAllX/?id=6&code=sh601997&startTime= HTTP/1.1" 500 120126
+Not Found: /favicon.ico
+[13/Nov/2020 09:44:45] "GET /favicon.ico HTTP/1.1" 404 2402
+Not Found: /
+[13/Nov/2020 13:25:02] "GET / HTTP/1.1" 404 2351
+Not Found: /
+[13/Nov/2020 13:25:03] "GET / HTTP/1.1" 404 2351
+Not Found: /
+[13/Nov/2020 14:24:02] "GET / HTTP/1.1" 404 2351
+Not Found: /
+[14/Nov/2020 07:24:45] "GET / HTTP/1.1" 404 2351
+Not Found: /
+[14/Nov/2020 07:25:04] "GET / HTTP/1.1" 404 2351
+Not Found: /
+[14/Nov/2020 07:25:10] "GET / HTTP/1.1" 404 2351
+[14/Nov/2020 14:30:42] "GET /index/?id=3&code=sh601997&startTime=2020-11-6 HTTP/1.1" 200 4876
+Not Found: /apple-touch-icon-120x120-precomposed.png
+[14/Nov/2020 14:30:44] "GET /apple-touch-icon-120x120-precomposed.png HTTP/1.1" 404 2489
+Not Found: /apple-touch-icon-120x120.png
+[14/Nov/2020 14:30:49] "GET /apple-touch-icon-120x120.png HTTP/1.1" 404 2453
+Not Found: /apple-touch-icon-precomposed.png
+[14/Nov/2020 14:30:56] "GET /apple-touch-icon-precomposed.png HTTP/1.1" 404 2465
+Not Found: /apple-touch-icon.png
+[14/Nov/2020 14:30:57] "GET /apple-touch-icon.png HTTP/1.1" 404 2429
+Not Found: /favicon.ico
+[14/Nov/2020 14:30:58] "GET /favicon.ico HTTP/1.1" 404 2402
+Not Found: /apple-touch-icon-120x120-precomposed.png
+[14/Nov/2020 14:30:58] "GET /apple-touch-icon-120x120-precomposed.png HTTP/1.1" 404 2489
+Not Found: /apple-touch-icon-120x120.png
+[14/Nov/2020 14:31:00] "GET /apple-touch-icon-120x120.png HTTP/1.1" 404 2453
+Not Found: /apple-touch-icon-precomposed.png
+[14/Nov/2020 14:31:00] "GET /apple-touch-icon-precomposed.png HTTP/1.1" 404 2465
+Not Found: /apple-touch-icon.png
+[14/Nov/2020 14:31:00] "GET /apple-touch-icon.png HTTP/1.1" 404 2429
+Not Found: /favicon.ico
+[14/Nov/2020 14:31:01] "GET /favicon.ico HTTP/1.1" 404 2402
+Not Found: /
+[14/Nov/2020 17:30:44] "GET / HTTP/1.1" 404 2351
+Not Found: /
+[14/Nov/2020 17:30:44] "GET / HTTP/1.1" 404 2351
+Not Found: /
+[14/Nov/2020 18:10:11] "GET / HTTP/1.1" 404 2351
+Not Found: /
+[15/Nov/2020 06:16:08] "GET / HTTP/1.1" 404 2354
+[16/Nov/2020 02:22:59] "GET /index/?code=sh601003&startTime=2020-11-11&ipjipipijpijpijpijpoijpoijpoijpoijp=pijpoipoijpijpijp HTTP/1.1" 200 4918
+/usr/local/lib/python3.6/site-packages/pyecharts/charts/chart.py:14: PendingDeprecationWarning: pyecharts 所有图表类型将在 v1.9.0 版本开始强制使用 ChartItem 进行数据项配置 :)
+  super().__init__(init_opts=init_opts)
+/usr/local/lib/python3.6/site-packages/pyecharts/charts/chart.py:14: PendingDeprecationWarning: pyecharts 所有图表类型将在 v1.9.0 版本开始强制使用 ChartItem 进行数据项配置 :)
+  super().__init__(init_opts=init_opts)
+Internal Server Error: /showAllX/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.6/site-packages/django/core/handlers/base.py", line 179, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/root/gp/mysite/count/views.py", line 40, in showAllX
+    str = common.showAllX(id,code)
+  File "/root/gp/mysite/count/model/common.py", line 236, in showAllX
+    worldcloud.render('templates/'+templete)
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/charts/base.py", line 73, in render
+    return engine.render(self, path, template_name, env, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/render/engine.py", line 72, in render
+    template_name=template_name, chart=chart, path=path, **kwargs
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/render/engine.py", line 55, in render_chart_to_file
+    write_utf8_html_file(path, html)
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/render/engine.py", line 14, in write_utf8_html_file
+    with open(file_name, "w+", encoding="utf-8") as html_file:
+FileNotFoundError: [Errno 2] No such file or directory: 'templates/count/2.html'
+[16/Nov/2020 02:22:59] "GET /showAllX/?id=2&code=sh601003&startTime= HTTP/1.1" 500 101679
+/usr/local/lib/python3.6/site-packages/pyecharts/charts/chart.py:14: PendingDeprecationWarning: pyecharts 所有图表类型将在 v1.9.0 版本开始强制使用 ChartItem 进行数据项配置 :)
+  super().__init__(init_opts=init_opts)
+/usr/local/lib/python3.6/site-packages/pyecharts/charts/chart.py:14: PendingDeprecationWarning: pyecharts 所有图表类型将在 v1.9.0 版本开始强制使用 ChartItem 进行数据项配置 :)
+  super().__init__(init_opts=init_opts)
+Internal Server Error: /showAllX/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.6/site-packages/django/core/handlers/base.py", line 179, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/root/gp/mysite/count/views.py", line 40, in showAllX
+    str = common.showAllX(id,code)
+  File "/root/gp/mysite/count/model/common.py", line 222, in showAllX
+    bar.render('templates/'+templete)
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/charts/base.py", line 73, in render
+    return engine.render(self, path, template_name, env, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/render/engine.py", line 72, in render
+    template_name=template_name, chart=chart, path=path, **kwargs
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/render/engine.py", line 55, in render_chart_to_file
+    write_utf8_html_file(path, html)
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/render/engine.py", line 14, in write_utf8_html_file
+    with open(file_name, "w+", encoding="utf-8") as html_file:
+FileNotFoundError: [Errno 2] No such file or directory: 'templates/count/1.html'
+[16/Nov/2020 02:23:01] "GET /showAllX/?id=1&code=sh601003&startTime=2020-11-11 HTTP/1.1" 500 103458
+/usr/local/lib/python3.6/site-packages/pyecharts/charts/chart.py:14: PendingDeprecationWarning: pyecharts 所有图表类型将在 v1.9.0 版本开始强制使用 ChartItem 进行数据项配置 :)
+  super().__init__(init_opts=init_opts)
+/usr/local/lib/python3.6/site-packages/pyecharts/charts/chart.py:14: PendingDeprecationWarning: pyecharts 所有图表类型将在 v1.9.0 版本开始强制使用 ChartItem 进行数据项配置 :)
+  super().__init__(init_opts=init_opts)
+Internal Server Error: /showAllX/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.6/site-packages/django/core/handlers/base.py", line 179, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/root/gp/mysite/count/views.py", line 40, in showAllX
+    str = common.showAllX(id,code)
+  File "/root/gp/mysite/count/model/common.py", line 288, in showAllX
+    ).render('templates/'+templete)
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/charts/base.py", line 73, in render
+    return engine.render(self, path, template_name, env, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/render/engine.py", line 72, in render
+    template_name=template_name, chart=chart, path=path, **kwargs
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/render/engine.py", line 55, in render_chart_to_file
+    write_utf8_html_file(path, html)
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/render/engine.py", line 14, in write_utf8_html_file
+    with open(file_name, "w+", encoding="utf-8") as html_file:
+FileNotFoundError: [Errno 2] No such file or directory: 'templates/count/4.html'
+[16/Nov/2020 02:23:01] "GET /showAllX/?id=4&code=sh601003&startTime= HTTP/1.1" 500 102514
+Internal Server Error: /showAllX/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.6/site-packages/django/core/handlers/base.py", line 179, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/root/gp/mysite/count/views.py", line 40, in showAllX
+    str = common.showAllX(id,code)
+  File "/root/gp/mysite/count/model/common.py", line 314, in showAllX
+    ).render('templates/'+templete)
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/charts/base.py", line 73, in render
+    return engine.render(self, path, template_name, env, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/render/engine.py", line 72, in render
+    template_name=template_name, chart=chart, path=path, **kwargs
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/render/engine.py", line 55, in render_chart_to_file
+    write_utf8_html_file(path, html)
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/render/engine.py", line 14, in write_utf8_html_file
+    with open(file_name, "w+", encoding="utf-8") as html_file:
+FileNotFoundError: [Errno 2] No such file or directory: 'templates/count/5.html'
+[16/Nov/2020 02:23:01] "GET /showAllX/?id=5&code=sh601003&startTime= HTTP/1.1" 500 102370
+Internal Server Error: /showAllX/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.6/site-packages/django/core/handlers/base.py", line 179, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/root/gp/mysite/count/views.py", line 40, in showAllX
+    str = common.showAllX(id,code)
+  File "/root/gp/mysite/count/model/common.py", line 263, in showAllX
+    bar.render('templates/'+templete)
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/charts/base.py", line 73, in render
+    return engine.render(self, path, template_name, env, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/render/engine.py", line 72, in render
+    template_name=template_name, chart=chart, path=path, **kwargs
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/render/engine.py", line 55, in render_chart_to_file
+    write_utf8_html_file(path, html)
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/render/engine.py", line 14, in write_utf8_html_file
+    with open(file_name, "w+", encoding="utf-8") as html_file:
+FileNotFoundError: [Errno 2] No such file or directory: 'templates/count/3.html'
+[16/Nov/2020 02:23:03] "GET /showAllX/?id=3&code=sh601003&startTime=2020-11-11 HTTP/1.1" 500 110939
+Internal Server Error: /showAllX/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.6/site-packages/django/core/handlers/base.py", line 179, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/root/gp/mysite/count/views.py", line 40, in showAllX
+    str = common.showAllX(id,code)
+  File "/root/gp/mysite/count/model/common.py", line 355, in showAllX
+    sac.render('templates/'+templete)
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/charts/base.py", line 73, in render
+    return engine.render(self, path, template_name, env, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/render/engine.py", line 72, in render
+    template_name=template_name, chart=chart, path=path, **kwargs
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/render/engine.py", line 55, in render_chart_to_file
+    write_utf8_html_file(path, html)
+  File "/usr/local/lib/python3.6/site-packages/pyecharts/render/engine.py", line 14, in write_utf8_html_file
+    with open(file_name, "w+", encoding="utf-8") as html_file:
+FileNotFoundError: [Errno 2] No such file or directory: 'templates/count/6.html'
+[16/Nov/2020 02:23:03] "GET /showAllX/?id=6&code=sh601003&startTime= HTTP/1.1" 500 120952
