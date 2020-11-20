@@ -56,30 +56,20 @@ def getOneKData(code,startTime):
     row = collection.find_one({"datetime":{'$regex':startTime+".*"}}) 
     return row
 
+def getSomeDaysKData(code,startTime,days):    
+    collection = conn[code]   
+    rows = collection.find({"datetime":{'$gte':startTime}}).limit(days)
+    return rows
+
 """
 order: every 10 days line simlarity
 """
 class calc10DaysKSimlarity():
-    def set5DayToArray(self,code,startDt,days):     
-        d = datetime.datetime.strptime(startDt, '%Y-%m-%d')  
+    def set10DayToArray(self,code,startDt,days):     
         lastData = []
-        i=0
-        while True:
-            try:
-                dateTime = d+datetime.timedelta(i)
-                timeArray = dateTime.timetuple()
-                queryStr = time.strftime("%Y-%m-%d",timeArray)  
-                oneData = getOneKData('k'+code,queryStr)
-                if oneData:
-                    lastData.append(oneData['close'])
-                i=i+1
-                if len(lastData)==days:
-                    break
-                if i >=50:
-                    break
-            except :
-                continue
-        return lastData;
+        rows = getSomeDaysKData('k'+code,startDt,days)
+        lastData = [row['close'] for row in rows]
+        return lastData
 
     def calcxDaysKSimlarity(self,code,pkCode):        
         #1,one match history;2,find the top history  
@@ -87,7 +77,7 @@ class calc10DaysKSimlarity():
         dateTime = datetime.datetime.now() - datetime.timedelta(beforDays)
         timeArray = dateTime.timetuple()
         queryStr = time.strftime("%Y-%m-%d",timeArray)  
-        target = self.set5DayToArray(code,queryStr,beforDays)
+        target = self.set10DayToArray(code,queryStr,beforDays)
 
         days = beforDays
         pkDatas=[]
@@ -95,7 +85,7 @@ class calc10DaysKSimlarity():
             dateTime = datetime.datetime.now() - datetime.timedelta(i)
             timeArray = dateTime.timetuple()
             queryStr = time.strftime("%Y-%m-%d",timeArray)  
-            onePieceData= self.set5DayToArray(pkCode,queryStr,days)
+            onePieceData= self.set10DayToArray(pkCode,queryStr,days)
             try:
                 pt = calcPearson(target,onePieceData)
                 pkDatas.append([pkCode,pt,queryStr,onePieceData])
@@ -129,6 +119,7 @@ print(matchsNotCodeData)
 
 
 """
+以下是画图（从上文数据）
 Gallery 使用 pyecharts 1.1.0
 参考地址: https://echarts.baidu.com/examples/editor.html?c=line-stack
 暂无
