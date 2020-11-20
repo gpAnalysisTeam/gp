@@ -40,19 +40,29 @@
   </tr>
 
   <tr>
-    <td><iframe  src="/showAllX/?id=6&code={{ code }}&startTime={{ start_time }}" onLoad="calcHeight(this);" height="100%" width="100%" id="frame_full" frameborder="0" scrolling="no" ></iframe></td>
     <td>
-      {% for i in wenziWords %}  
-       {{ i.0 }} :{{ i.1 }} <br>
-       {{ i.3}} <br> <br>
+      <iframe  src="/showAllX/?id=6&code={{ code }}&startTime={{ start_time }}" onLoad="calcHeight(this);" height="100%" width="100%" id="frame_full" frameborder="0" scrolling="no" ></iframe>
+    </td>
+    <td  align="left" valign="top" style="overflow:auto">
+      {{ data15.modelDateTimeSelect }}
+      <hr>
+      {% for i in data15.data %}  
+       {{ i.0 }} :{{ i.1 }} :  {{ i.2 }} <br>
+     {{ i.3}} <br> <br>
       {% endfor %} 
+      <br>
+      {% for i in data15.modelList %}  
+       {{ i.0}} : {{ i.3}} <br> <br>
+      {% endfor %} 
+      <hr>
+
 
     </td>
   </tr>
   <tr>
     <td><iframe  src="/showAllX/?id=2&code={{ code }}&startTime={{ start_time }}" onLoad="calcHeight(this);" height="100%" width="100%" id="frame_full" frameborder="0" scrolling="no" ></iframe></td>
-    <td>：</td>
-  </tr>
+    <td><iframe  src="/showAllX/?id=7&code={{ code }}&startTime={{ start_time }}" onLoad="calcHeight(this);" height="100%" width="100%" id="frame_full" frameborder="0" scrolling="no" ></iframe></td>
+    </tr>
 </table>     
       
 

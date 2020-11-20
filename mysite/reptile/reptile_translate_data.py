@@ -70,10 +70,10 @@ class gp():
                             row['v'+str(n)]=item.text
                             n+=1
                         mm=i.find_elements_by_tag_name('th')
-                        row['v0']=str(datetime.datetime.now().year)+'-'+str(datetime.datetime.now().month)+'-'+str(datetime.datetime.now().day)+' '+mm[0].text
-                        row['v6']=mm[1].text
-                        row['v7']=mm[0].text
-                        timeSteam= datetime.datetime.strptime(row['v0'],'%Y-%m-%d %H:%M:%S')
+                        row['datetime']=str(datetime.datetime.now().year)+'-'+str(datetime.datetime.now().month)+'-'+str(datetime.datetime.now().day)+' '+mm[0].text
+                        row['type']=mm[1].text
+                        row['time']=mm[0].text
+                        timeSteam= datetime.datetime.strptime(row['datetime'],'%Y-%m-%d %H:%M:%S')
                         row['pubtime']  = int(time.mktime(timeSteam.timetuple()))
                         self.data_insert(key,row)
                 except:
