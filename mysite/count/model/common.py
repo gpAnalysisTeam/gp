@@ -18,15 +18,16 @@ connection.authenticate(mongodbConfig.username,mongodbConfig.password,mechanism=
 
 def industryHot():
     collection = connection['industry']
-    industryList = collection.find().sort([('v0', pymongo.DESCENDING),('percent', pymongo.DESCENDING)]).limit(9) 
+    industryList = collection.find().sort([('datetime', pymongo.DESCENDING),('percent', pymongo.DESCENDING)]).limit(9) 
     return industryList
 
 def codes():
     collection = connection['codes']
-    codes = collection.find({'industry':None}).sort([('id', pymongo.DESCENDING)]) 
+    myquery = { "is_on":  1} 
+    codes = collection.find(myquery).sort([('id', pymongo.ASCENDING)]) 
     data=[]
     for code in codes:
-        if 'name' in code.keys():
+        if 'name' in code.keys() and code['name'] !='':
             code['title']=code['name']
         if 'title' not in code.keys() and 'name' not in code.keys():
             continue
@@ -49,20 +50,20 @@ def common():
 
 def getOneDayData(code,startTime):    
     collection = connection[code]
-    rows = collection.find({"v0":{'$regex':startTime+".*"}}).sort([('id', pymongo.ASCENDING)]) 
+    rows = collection.find({"datetime":{'$regex':startTime+".*"}}).sort([('pubtime', pymongo.ASCENDING)]) 
     return rows
 def oneDataMinAndMaxPrice(code,startTime):
     oneDayData = getOneDayData(code,startTime)
     min={'value':999,'time':''}
     max={'value':0,'time':''}
     for i in oneDayData:
-        if float(i['v1'])<2:
+        if float(i['price'])<2:
             continue
 
-        if float(i['v1'])>max['value']:
-            max={'value':round(float(i['v1']),2),'time':i['v0']}
-        if float(i['v1'])<min['value']:
-            min={'value':round(float(i['v1']),2),'time':i['v0']}
+        if float(i['price'])>max['value']:
+            max={'value':round(float(i['price']),2),'time':i['datetime']}
+        if float(i['price'])<min['value']:
+            min={'value':round(float(i['price']),2),'time':i['datetime']}
     if min['value']==999 or  max['value']==0:
         return None
     else:
@@ -71,10 +72,10 @@ def oneDataMinAndMaxPrice(code,startTime):
 
 def getAllData(code):    
     collection = connection[code]
-    rows = collection.find().sort([('id', pymongo.ASCENDING)]) 
+    rows = collection.find().sort([('pubtime', pymongo.DESCENDING)]).limit(5000)
     data=[]
     for i in rows:        
-        if float(i['v1'])>2:
+        if float(i['price'])>2:
             data.append(i)
     return data
 
@@ -127,12 +128,12 @@ def showx(id,code,startTime):
         rows = getOneDayData(code,startTime) 
         data = {}
         for x in rows:
-            x['v1']= round(float(x['v1']), 2)
-            x['v4']= int(x['v4'])
-            if x['v1'] not in data.keys():
-                data[x['v1'] ]=x['v4']
+            x['price']= round(float(x['price']), 2)
+            x['volume']= int(x['volume'])
+            if x['price'] not in data.keys():
+                data[x['price'] ]=x['volume']
             else:
-                data[x['v1'] ]+=x['v4']                
+                data[x['price'] ]+=x['volume']                
         ##
         listOrder = sorted(data)
         x_data=[]
@@ -158,13 +159,13 @@ def showx(id,code,startTime):
         rows = getOneDayData(code,startTime) 
         data = []       
         for x in rows:
-            if x['v1'] !='':                
-                timeArray = time.strptime(x['v0'], "%Y-%m-%d %H:%M:%S")
+            if x['price'] !='':                
+                timeArray = time.strptime(x['datetime'], "%Y-%m-%d %H:%M:%S")
                 dt_new = time.strftime("%H%M%S",timeArray)#%m%d%
-                x['v0']= float(dt_new)/3600-20
-                x['v1']= float(x['v1'])-17
-                if x['v1']>0:
-                    data.append([x['v0'],x['v1']])
+                x['datetime']= float(dt_new)/3600-20
+                x['price']= float(x['price'])-17
+                if x['price']>0:
+                    data.append([x['datetime'],x['price']])
         
         data.sort(key=lambda x: x[0])
         x_data = [d[0] for d in data]
@@ -199,13 +200,14 @@ def showAllX(id,code,flag=0):
         dayY = []
         for i in range(days+2):
             try:
-                queryTime = (startStream+datetime.timedelta(i))
-                queryStr = str(queryTime.year)+'-'+str(queryTime.month)+'-'+str(queryTime.day)
+                dateTime = (startStream+datetime.timedelta(i))
+                timeArray = dateTime.timetuple()
+                queryStr = time.strftime("%Y-%m-%d",timeArray)                
                 ondDayData = getOneDayData(code,queryStr)
                 b=[]
                 for x in ondDayData:
-                    if x['v1'] !='' and (float(x['v1'])>1): 
-                        b.append(x['v1'])
+                    if x['price'] !='' and (float(x['price'])>1): 
+                        b.append(x['price'])
                 if b!=[]:
                     dayX.append(queryStr)
                     yV = round(float(max(b))-float(min(b)),2)
@@ -240,12 +242,12 @@ def showAllX(id,code,flag=0):
         rows = getAllData(code) 
         data = {}
         for x in rows:
-            x['v1']= round(float(x['v1']), 2)
-            x['v4']= int(x['v4'])
-            if x['v1'] not in data.keys():
-                data[x['v1'] ]=x['v4']
+            x['price']= round(float(x['price']), 2)
+            x['volume']= int(x['volume'])
+            if x['price'] not in data.keys():
+                data[x['price'] ]=x['volume']
             else:
-                data[x['v1'] ]+=x['v4']                
+                data[x['price'] ]+=x['volume']                
         ##
         listOrder = sorted(data)
         x_data=[]
@@ -269,8 +271,9 @@ def showAllX(id,code,flag=0):
         dayY = []
         for i in range(days+2):
             try:
-                queryTime = (startStream+datetime.timedelta(i))
-                queryStr = str(queryTime.year)+'-'+str(queryTime.month)+'-'+str(queryTime.day)
+                dateTime = (startStream+datetime.timedelta(i))
+                timeArray = dateTime.timetuple()
+                queryStr = time.strftime("%Y-%m-%d",timeArray)          
                 ondDayData = oneDataMinAndMaxPrice(code,queryStr)
                 if None == ondDayData:
                     continue
@@ -295,8 +298,9 @@ def showAllX(id,code,flag=0):
         dayY = []
         for i in range(days+2):
             try:
-                queryTime = (startStream+datetime.timedelta(i))
-                queryStr = str(queryTime.year)+'-'+str(queryTime.month)+'-'+str(queryTime.day)
+                dateTime = (startStream+datetime.timedelta(i))
+                timeArray = dateTime.timetuple()
+                queryStr = time.strftime("%Y-%m-%d",timeArray)          
                 ondDayData = oneDataMinAndMaxPrice(code,queryStr)
                 if None == ondDayData:
                     continue
@@ -319,16 +323,16 @@ def showAllX(id,code,flag=0):
         #Scatter
         rows = getAllData(code) 
         data = []  
-        # b = [i['v1'] for i in rows]
+        # b = [i['price'] for i in rows]
 
         for x in rows:
-            if x['v1'] !='':                
-                timeArray = time.strptime(x['v0'], "%Y-%m-%d %H:%M:%S")
+            if x['price'] !='':                
+                timeArray = time.strptime(x['datetime'], "%Y-%m-%d %H:%M:%S")
                 dt_new = time.strftime("%H%M%S",timeArray)#%m%d%
-                x['v0']= float(dt_new)/3600-20
-                x['v1']= float(x['v1'])
-                if x['v1']>0:
-                    data.append([x['v0'],x['v1']])
+                x['datetime']= float(dt_new)/3600-20
+                x['price']= float(x['price'])
+                if x['price']>0:
+                    data.append([x['datetime'],x['price']])
         
         data.sort(key=lambda x: x[0])
         x_data = [d[0] for d in data]

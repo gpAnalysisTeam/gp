@@ -31,6 +31,9 @@ def euclidean(p, q):
     e = sum([(p[i] - q[i]) ** 2 for i in range(same)])
     return 1 / (1 + e ** .5)
 
+"""
+order: every 15minute avg value 
+"""
 class datas15():
     minuteArr = [m for m in range(60)]
     minuteGroup =list_split(minuteArr,15)
@@ -48,26 +51,28 @@ class datas15():
 
     def group15(self,code):
         connect = db().conn()[code]
-        rows = connect.find().sort([('pubtime', pymongo.ASCENDING)])
+        rows = connect.find().sort([('pubtime', pymongo.DESCENDING)]).limit(5000)
         ##############group ###########################
         data={}
         for row in rows:
             dataMinuteGroup=self.getPieceNameByTime(int(row['pubtime']))
             if dataMinuteGroup in data.keys():
-                data[dataMinuteGroup].append({"pubtime":row['pubtime'],"price":row['v1'],"volumn":row['v5']})
+                data[dataMinuteGroup].append({"pubtime":row['pubtime'],"price":row['price'],"volumn":row['volume']})
             else :
-                data[dataMinuteGroup]=[{"pubtime":row['pubtime'],"price":row['v1'],"volumn":row['v5']}]
+                data[dataMinuteGroup]=[{"pubtime":row['pubtime'],"price":row['price'],"volumn":row['volume']}]
         return data
+
 
     def wordsWenziList(self,code):
         connect = db().conn()['words_wenzi']
         modelList = self.get4TapsBy15Minute(code)
         modelLen = len(modelList)
 
-        for i in range(1,modelLen):
-            modelKeyCount = Counter(modelList[modelLen-i][1])
-            if modelKeyCount['0']<2:
-                modelSelect = modelList[modelLen-i][1]
+        for i in range(0,modelLen):
+            modelKeyCount = Counter(modelList[i][1])
+            if modelKeyCount[0]<2:
+                modelSelect = modelList[i][1]
+                modelDateTimeSelect = modelList[i][0]
                 break
 
        # modelSelect=[4,3,2,1]
@@ -90,7 +95,7 @@ class datas15():
                 if times==6 :
                     break
         data.sort(key = lambda data:data[0], reverse=True)
-        return {'data':data,'modelList':modelList} 
+        return {'modelDateTimeSelect':modelDateTimeSelect,'data':data,'modelList':modelList} 
 
     def get4TapsBy15Minute(self,code):
         #### get price and group by 15minute
@@ -123,7 +128,11 @@ class datas15():
         ##################################
         taps=[]
         for i  in group15_4.keys():
-            taps.append([i,self.calculate15_4(group15_4[i]),group15_4[i]])
+            piece=','
+            arr=self.calculate15_4(group15_4[i])
+            num_list_new = [str(x) for x in arr]
+            arrStr=piece.join(num_list_new)
+            taps.append([i,arr,group15_4[i],arrStr])
         return taps
 
     def calculate15_4(self,group15_4):
