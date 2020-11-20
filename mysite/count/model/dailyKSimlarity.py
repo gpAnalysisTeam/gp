@@ -12,6 +12,9 @@ from collections import Counter
 
 import pyecharts.options as opts
 from pyecharts.charts import Line
+from pyecharts.components import Table
+from pyecharts.options import ComponentTitleOpts
+
 
 class db():
     def conn(self):
@@ -149,3 +152,20 @@ line.set_global_opts(
     ),
     xaxis_opts=opts.AxisOpts(type_="category", boundary_gap=False),
 ).render("templates/count/stacked_line_chart.html")
+
+
+
+
+
+table = Table()
+
+
+headers = ["name", "px"]
+rows = [
+    ["sh0", 5905],["sh30", 59305]
+]
+table.add(headers, rows)
+table.set_global_opts(
+    title_opts=ComponentTitleOpts(title="Table-基本示例", subtitle="我是副标题支持换行哦")
+)
+table.render("templates/count/table_base.html")
