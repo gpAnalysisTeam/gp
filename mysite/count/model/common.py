@@ -358,6 +358,6 @@ def showAllX(id,code,flag=0):
             return sac
         sac.render('templates/'+templete)
     elif id==7:
-        templete = ''
+        templete = 'count/stacked_line_chart.html'
 
     return templete

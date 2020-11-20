@@ -10,6 +10,8 @@ import math
 from config import mongodbConfig
 from collections import Counter
 
+import pyecharts.options as opts
+from pyecharts.charts import Line
 
 class db():
     def conn(self):
@@ -57,7 +59,7 @@ def getOneKData(code,startTime):
 """
 order: every 10 days line simlarity
 """
-class calc5DaysKSimlarity():
+class calc10DaysKSimlarity():
     def set5DayToArray(self,code,startDt,days):     
         d = datetime.datetime.strptime(startDt, '%Y-%m-%d')  
         lastData = []
@@ -96,21 +98,63 @@ class calc5DaysKSimlarity():
             onePieceData= self.set5DayToArray(pkCode,queryStr,days)
             try:
                 pt = calcPearson(target,onePieceData)
-                pkDatas.append([pt,queryStr,onePieceData])
+                pkDatas.append([pkCode,pt,queryStr,onePieceData])
             except :
                 continue
         #sort by pt
-        pkDatas.sort(key = lambda pkDatas:pkDatas[0], reverse=True)
+        pkDatas.sort(key = lambda pkDatas:pkDatas[1], reverse=True)
         simlarityData = pkDatas[:5]
         return simlarityData
 
-demo = calc5DaysKSimlarity()
+
+
+demo = calc10DaysKSimlarity()
 collection = conn['codes']
 tbs = collection.find({"is_on":1}).sort([('task', pymongo.ASCENDING)]).limit(100)
 i = 0
 matchs=[]
+matchsNotCode=[]
 for x in tbs:
     if  'code' in x.keys() and x['code']  != "" and x['code']!=code:
         data = demo.calcxDaysKSimlarity(code,x['code'])
         matchs.append([x['code'],data])
-print(matchs)
+        matchsNotCode.extend(data)
+        #break
+
+matchsNotCode.sort(key = lambda matchsNotCode:matchsNotCode[1], reverse=True)
+matchsNotCodeData = matchsNotCode[:5]
+
+print(matchsNotCodeData)
+###############
+
+
+"""
+Gallery 使用 pyecharts 1.1.0
+参考地址: https://echarts.baidu.com/examples/editor.html?c=line-stack
+暂无
+"""
+
+
+x_data = range(len(matchsNotCodeData[0][3]))
+
+
+line=Line().add_xaxis(xaxis_data=x_data)
+
+for one in matchsNotCodeData:
+    line.add_yaxis(
+        series_name=one[0],
+        stack="总量",
+        y_axis=one[3],
+        label_opts=opts.LabelOpts(is_show=False),
+    )
+
+line.set_global_opts(
+    title_opts=opts.TitleOpts(title="折线图堆叠"),
+    tooltip_opts=opts.TooltipOpts(trigger="axis"),
+    yaxis_opts=opts.AxisOpts(
+        type_="value",
+        axistick_opts=opts.AxisTickOpts(is_show=True),
+        splitline_opts=opts.SplitLineOpts(is_show=True),
+    ),
+    xaxis_opts=opts.AxisOpts(type_="category", boundary_gap=False),
+).render("templates/count/stacked_line_chart.html")
