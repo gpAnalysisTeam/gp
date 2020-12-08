@@ -55,10 +55,7 @@ def pearson(p,q):
     if down == 0 :return 0
     r = up/down
     return r
-a=[80,100,90,71]
-b=[8,1,5,11]
-t = pearson(a,b)
-t = 0
+
 
 
 """

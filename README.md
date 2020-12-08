@@ -27,13 +27,13 @@ Highly recommended to use [miniconda](https://conda.io/miniconda.html) for easie
 
 
 目录描述：
-1,采集脚本：test.py
+1,采集脚本：crontab/
 2,mysite ：dgango web,
-    运行：执行命令python3 /root/gp/mysite/manage.py runserver 0.0.0.0:8000 --noreload 
+    运行：cd /root/gp/mysite/;python3 /root/gp/mysite/manage.py runserver 0.0.0.0:8000 --noreload 
 
 git 管理规则我写一下： 
 gp1.0表示大家的第一个版本，
-请创建自己的分支：如我的：gp1.0_wenyq  (gp1.0_（自己的名字）)，各人在自己的分支下改代码，合并到阶段性的版本中。
+请创建自己的分支：如：gp1.0_wenyq  (gp1.0_（自己的名字）)，各人在自己的分支下改代码，合并到阶段性的版本中。
 release：第一个正式版本。
 test表示测试版本。
 
