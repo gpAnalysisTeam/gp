@@ -24,7 +24,7 @@ def industryHot():
 def codes():
     collection = connection['codes']
     myquery = { "is_on":  1} 
-    codes = collection.find(myquery).sort([('id', pymongo.ASCENDING)]) 
+    codes = collection.find(myquery).sort([('id', pymongo.DESCENDING)]) 
     data=[]
     for code in codes:
         if 'name' in code.keys() and code['name'] !='':

@@ -8,6 +8,7 @@ import numpy as np
 
 import math
 from config import mongodbConfig
+import common as cm
 from collections import Counter
 
 def bit_product_sum(x, y):
@@ -25,4 +26,38 @@ def cosine_similarity(x, y, norm=False):
     cos = sum(res[:, 0]) / (np.sqrt(sum(res[:, 1])) * np.sqrt(sum(res[:, 2])))
     return 0.5 * cos + 0.5 if norm else cos  # 归一化到[0, 1]区间内
 
-t= cosine_similarity([80,100,90,70], [6,5,4.5,3.5])  # 1.0
+code = 'sh601211'
+"""
+30 day data similarity
+"""
+def day30similarity(templete):
+    codes=cm.codes()
+    templeteData=cm.getBefor30DaysKData(templete)
+    similarityValue = []
+    for code in codes:
+        if code['code']!=templete:
+            codeXdada=cm.getBefor30DaysKData(code['code'])
+            if len(templeteData)!=len(codeXdada):
+                print(code['code'])
+            else:
+                t= cosine_similarity(templeteData,codeXdada) 
+                similarityValue.append([code['title'],code['code'],t])
+    similarityValue.sort(key = lambda similarityValue:similarityValue[1], reverse=True)
+    return similarityValue
+
+similarityValue = day30similarity(code)
+print(code+"#######")
+for row in similarityValue[:6]:
+    print(row[0]+":"+row[1]+":"+str(row[2])) 
+    
+
+
+
+
+
+
+
+# t = np.sqrt(3)
+# t= cosine_similarity([1,1], [t,2])  # 1.0
+# cos15 = math.cos(15/360*(2*math.pi))
+# t=1

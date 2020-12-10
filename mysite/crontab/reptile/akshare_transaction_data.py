@@ -9,6 +9,8 @@ import re
 import random
 import sys
 import pymongo
+import os
+import multiprocessing
 
 from bson.objectid import ObjectId
 import uuid
@@ -40,17 +42,17 @@ class gp():
     def start_getK(self):
         #get_hist_data
         collection = self.connection['codes']
-        tbs = collection.find({"is_on":1}).sort([('task', pymongo.ASCENDING)]).limit(100)
+        tbs = collection.find({"is_on":1}).sort([('aktask', pymongo.ASCENDING)]).limit(100)
         i = 0
         x1={}
         pro = ts.pro_api()
         for x in tbs:
             if  'code' in x.keys() and x['code']  != "":
-                if 'task' in x.keys():
-                    task = int(x['task'])+1
+                if 'aktask' in x.keys():
+                    task = int(x['aktask'])+1
                 else:
                     task=1
-                collection.update({'_id': ObjectId(x['_id'])},  {'$set': {"task": task}}) 
+                collection.update({'_id': ObjectId(x['_id'])},  {'$set': {"aktask": task}}) 
                 i+=1
                 print(i)
                 code = x['code'][2:]
@@ -64,13 +66,22 @@ class gp():
                     df = ak.stock_zh_index_daily_tx(symbol=x['code'])           
                     ###################################
                     # ###################################
-                    print(df)                 
+                                   
                     try:
-                        #tests  = json.loads(df.to_json(orient='records'))
+                        #tests  = json.loads(df.to_json(orient='records'))    
+                        allKD = []  
                         for row in df.iterrows():
                             line = row[1].to_dict()
                             line['datetime'] = str(row[0])
-                            self.data_insert('k'+x['code'],line)                
+                            allKD.append(line)
+                        allKD.reverse()
+                        print(allKD[:20])  
+                        i=0        
+                        for row in allKD:
+                            self.data_insert('k'+x['code'],row) 
+                            i=i+1
+                            if i  >=20:
+                                break               
                     except :
                         continue
                 except :
@@ -94,7 +105,7 @@ class gp():
                 print(i)
                 code = x['code'][2:]
                 #set startdate
-                days =30
+                days =25
                 startStream = datetime.datetime.now() - datetime.timedelta(days)
 
                 for i in range(days+2):
@@ -132,8 +143,14 @@ class gp():
 
 if __name__ == '__main__':
     gp = gp()
+    gp.start_getK()
     gp.start_getpage_requests()
-    #gp.start_getK()
+    # p = multiprocessing.Process(target=gp.start_getK)
+    # p.start()
+    # time.sleep(1)
+    # p = multiprocessing.Process(target=gp.start_getpage_requests)
+    # p.start()
+
 
     # i=0
     # runtype = sysConfig.runWay # always or onetimes
