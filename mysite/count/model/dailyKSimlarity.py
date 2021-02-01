@@ -59,6 +59,7 @@ def getOneKData(code,startTime):
     row = collection.find_one({"datetime":{'$regex':startTime+".*"}}) 
     return row
 
+
 def getSomeDaysKData(code,startTime,days):    
     collection = conn[code]   
     rows = collection.find({"datetime":{'$gte':startTime}}).limit(days)

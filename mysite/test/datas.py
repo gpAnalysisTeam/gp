@@ -15,7 +15,7 @@ def bit_product_sum(x, y):
     return sum([item[0] * item[1] for item in zip(x, y)])
 
 def cosine_similarity(x, y, norm=False):
-    """ 计算两个向量x和y的余弦相似度 """
+    """计算两个向量x和y的余弦相似度 """
     assert len(x) == len(y), "len(x) != len(y)"
     zero_list = [0] * len(x)
     if x == zero_list or y == zero_list:
@@ -50,14 +50,3 @@ print(code+"#######")
 for row in similarityValue[:6]:
     print(row[0]+":"+row[1]+":"+str(row[2])) 
     
-
-
-
-
-
-
-
-# t = np.sqrt(3)
-# t= cosine_similarity([1,1], [t,2])  # 1.0
-# cos15 = math.cos(15/360*(2*math.pi))
-# t=1

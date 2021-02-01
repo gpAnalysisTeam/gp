@@ -35,6 +35,8 @@ connection.authenticate(mongodbConfig.username,mongodbConfig.password,mechanism=
 db = connection
 
 class gp():  
+    days=7
+    historyData=[]
     keys=[]
     connection = pymongo.MongoClient(mongodbConfig.host,mongodbConfig.port)[mongodbConfig.dbname]
     connection.authenticate(mongodbConfig.username,mongodbConfig.password,mechanism='SCRAM-SHA-1') 
@@ -75,12 +77,13 @@ class gp():
                             line['datetime'] = str(row[0])
                             allKD.append(line)
                         allKD.reverse()
-                        print(allKD[:20])  
+                        days = self.days
+                        print(allKD[:days])  
                         i=0        
                         for row in allKD:
                             self.data_insert('k'+x['code'],row) 
                             i=i+1
-                            if i  >=20:
+                            if i  >=days:
                                 break               
                     except :
                         continue
@@ -95,6 +98,7 @@ class gp():
         i = 0
         x1={}
         for x in tbs:
+            tb=x['code']
             if  'code' in x.keys() and x['code']  != "":
                 if 'task' in x.keys():
                     task = int(x['task'])+1
@@ -105,7 +109,7 @@ class gp():
                 print(i)
                 code = x['code'][2:]
                 #set startdate
-                days =25
+                days = self.days
                 startStream = datetime.datetime.now() - datetime.timedelta(days)
 
                 for i in range(days+2):
@@ -113,17 +117,31 @@ class gp():
                         dateTime = (startStream+datetime.timedelta(i))
                         timeArray = dateTime.timetuple()
                         queryStr = time.strftime("%Y-%m-%d",timeArray)
+                        print(queryStr)
                         #'2020-11-16',
                         df = ts.get_tick_data(code,date=queryStr,src='tt')
-                               
+
+                        ###dateTime
+                        startTime=0
+                        timeArray = time.strptime(queryStr, "%Y-%m-%d")
+                        startTime = int(time.mktime(timeArray))
+
+                        collection = self.db[tb] 
+                        rows  =collection.find({"pubtime":{'$gte':startTime},"pubtime":{'$lte':(startTime+3600*24)}})
+                        rowsDt=[]
+                        for x in rows:
+                            rowsDt.append(x['pubtime'])
+
                         try:
                             tests  = json.loads(df.to_json(orient='records'))
                             for row in tests:
                                 row['datetime']=queryStr+' '+row['time']         
-                                dataStr =  row['datetime']               
+                                dataStr =  row['datetime']                                              
                                 timeSteam= datetime.datetime.strptime(dataStr,'%Y-%m-%d %H:%M:%S')
                                 row['pubtime']  = int(time.mktime(timeSteam.timetuple()))
-                                self.data_insert(x['code'],row)
+                                if row['pubtime'] in rowsDt:
+                                    continue
+                                self.data_insert(tb,row)
                         
                         except :
                             continue
@@ -142,9 +160,11 @@ class gp():
             print(key+"yet!")
 
 if __name__ == '__main__':
-    gp = gp()
-    gp.start_getK()
+    gp = gp()    
     gp.start_getpage_requests()
+    print("######start_getpage_requests complete")
+    #gp.start_getK()
+    print("######start_getK complete")
     # p = multiprocessing.Process(target=gp.start_getK)
     # p.start()
     # time.sleep(1)
