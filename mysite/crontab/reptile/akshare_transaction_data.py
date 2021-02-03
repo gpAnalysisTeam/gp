@@ -44,11 +44,14 @@ class gp():
     def start_getK(self):
         #get_hist_data
         collection = self.connection['codes']
-        tbs = collection.find({"is_on":1}).sort([('aktask', pymongo.ASCENDING)]).limit(100)
+        tbs = collection.find({"is_on":1}).sort([('aktask', pymongo.ASCENDING)]).limit(5500)
         i = 0
         x1={}
-        pro = ts.pro_api()
+        # pro = ts.pro_api()
         for x in tbs:
+            # collection.update({'_id': ObjectId(x['_id'])},  {'$set': {"is_on": 1}}) 
+            # continue
+
             if  'code' in x.keys() and x['code']  != "":
                 if 'aktask' in x.keys():
                     task = int(x['aktask'])+1
@@ -159,29 +162,38 @@ class gp():
         else:
             print(key+"yet!")
 
+    def clear_oldK(self):
+        collection = self.connection['codes']
+        tbs = collection.find({"is_on":1}).sort([('task', pymongo.ASCENDING)]).limit(500)
+        i = 0
+
+        for x in tbs:
+            tb=x['code']
+            kCollection = self.connection['k'+tb]
+            days = 200
+            startStream = datetime.datetime.now() - datetime.timedelta(days)
+            dateTime = (startStream+datetime.timedelta(i))
+            timeArray = dateTime.timetuple()
+            startTime = time.strftime("%Y-%m-%d",timeArray)
+
+            query = {"datetime":{'$lte':startTime}}
+            kCollection.delete_many(query)
+
+
+
 if __name__ == '__main__':
     gp = gp()    
-    gp.start_getpage_requests()
-    print("######start_getpage_requests complete")
-    #gp.start_getK()
+    #gp.start_getpage_requests()
+    #print("######start_getpage_requests complete")
+    """
+    renew kdata
+    """
+    gp.start_getK()
     print("######start_getK complete")
-    # p = multiprocessing.Process(target=gp.start_getK)
-    # p.start()
-    # time.sleep(1)
-    # p = multiprocessing.Process(target=gp.start_getpage_requests)
-    # p.start()
 
+    """
+    clear old kdata
+    """
+    #gp.clear_oldK()
+    #print("######start_getK complete")
 
-    # i=0
-    # runtype = sysConfig.runWay # always or onetimes
-    # if runtype=='always':
-    #     while True:
-    #        # time.sleep(3)
-    #         i=i+1
-    #         print(i)
-    #         gp.start_getpage_requests()
-    # elif runtype=='onetimes':
-    #     i=i+1
-    #     print(i)
-    #     gp.start_getpage_requests()
-   

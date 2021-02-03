@@ -20,18 +20,29 @@ def codes():
     myquery = { "is_on":  1} 
     codes = collection.find(myquery).sort([('id', pymongo.DESCENDING)]) 
     data=[]
-    for code in codes:
-        if 'name' in code.keys() and code['name'] !='':
-            code['title']=code['name']
-        if 'title' not in code.keys() and 'name' not in code.keys():
-            continue
-        dick={'title':code['title'],'code':code['code']}
-        data.append(dick)
+    for code in codes:        
+        try:
+            if 'name' in code.keys() and code['name'] !='':
+                code['title']=code['name']
+            if 'title' not in code.keys() and 'name' not in code.keys():
+                continue
+            dick={'title':code['title'],'code':code['code']}
+            data.append(dick)
+        except :
+            continue       
+        
     return data
 def getBefor30DaysKData(code):
     collection = connection['k'+code]
     #
     days =30
+    rows = collection.find().sort([('datetime', pymongo.DESCENDING)]).limit(days)
+    data = [row['close'] for row in rows]
+    data.reverse()
+    return data
+
+def getBeforXDaysKData(code,days):
+    collection = connection['k'+code]
     rows = collection.find().sort([('datetime', pymongo.DESCENDING)]).limit(days)
     data = [row['close'] for row in rows]
     data.reverse()
