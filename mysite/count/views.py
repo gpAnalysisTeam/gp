@@ -8,7 +8,7 @@ def index(request):
     context = {} 
     context['code'] =request.GET['code']
     context['startTime'] = request.GET['startTime']
-    context['codes'] =common.codes()
+    context['codes'] =common.coss()
     context['industryHot'] =common.industryHot()
     #
     data15= datas.datas15().wordsWenziList(context['code'])

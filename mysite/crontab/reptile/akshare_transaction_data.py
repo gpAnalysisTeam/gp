@@ -35,7 +35,7 @@ connection.authenticate(mongodbConfig.username,mongodbConfig.password,mechanism=
 db = connection
 
 class gp():  
-    days=7
+    days=30
     historyData=[]
     keys=[]
     connection = pymongo.MongoClient(mongodbConfig.host,mongodbConfig.port)[mongodbConfig.dbname]
@@ -89,15 +89,19 @@ class gp():
                             if i  >=days:
                                 break               
                     except :
+                        collection.update({'_id': ObjectId(x['_id'])},  {'$set': {"aktask": (task-1)}}) 
+                        print(x['code']+'error!')
                         continue
                 except :
+                    collection.update({'_id': ObjectId(x['_id'])},  {'$set': {"aktask": (task-1)}}) 
+                    print(x['code']+'error!')
                     continue
         return True
         
 
     def start_getpage_requests(self):
-        collection = self.connection['codes']
-        tbs = collection.find({"is_on":1}).sort([('task', pymongo.ASCENDING)]).limit(100)
+        collection = self.connection['cos']
+        tbs = collection.find({}).sort([('sim', pymongo.DESCENDING)]).limit(100)
         i = 0
         x1={}
         for x in tbs:
@@ -112,7 +116,7 @@ class gp():
                 print(i)
                 code = x['code'][2:]
                 #set startdate
-                days = self.days
+                days = 10
                 startStream = datetime.datetime.now() - datetime.timedelta(days)
 
                 for i in range(days+2):
@@ -179,17 +183,21 @@ class gp():
             query = {"datetime":{'$lte':startTime}}
             kCollection.delete_many(query)
 
-
-
+"""
+Suggest:
+step1: test daysimilarycos.py
+step2: this start_getpage_requests
+step3 web show them
+"""
 if __name__ == '__main__':
     gp = gp()    
-    #gp.start_getpage_requests()
+    gp.start_getpage_requests()
     #print("######start_getpage_requests complete")
     """
     renew kdata
     """
-    gp.start_getK()
-    print("######start_getK complete")
+    #gp.start_getK()
+    #print("######start_getK complete")
 
     """
     clear old kdata

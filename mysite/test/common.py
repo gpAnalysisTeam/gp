@@ -17,7 +17,7 @@ def industryHot():
 
 def codes():
     collection = connection['codes']
-    myquery = { "is_on":  1} 
+    myquery = { "is_on":  1,"title":{'$nin':["sh","sz"]}} 
     codes = collection.find(myquery).sort([('id', pymongo.DESCENDING)]) 
     data=[]
     for code in codes:        

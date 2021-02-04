@@ -34,6 +34,20 @@ def codes():
         dick={'title':code['title'],'code':code['code']}
         data.append(dick)
     return data
+
+def coss():
+    collection = connection['cos']
+    myquery = {} 
+    codes = collection.find(myquery).sort([('sim', pymongo.DESCENDING)]) 
+    data=[]
+    for code in codes:
+        if 'name' in code.keys() and code['name'] !='':
+            code['title']=code['name']
+        if 'title' not in code.keys() and 'name' not in code.keys():
+            continue
+        dick={'title':code['title'],'code':code['code'],'sim':code['sim']}
+        data.append(dick)
+    return data
       
 def common():
     bar = (

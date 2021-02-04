@@ -10,7 +10,16 @@
 <body>
 <table width="101%" border="0">
   <tr>
-    <td width="11%" align="left" valign="top"> {% for i in codes %} <a href="/index/?code={{ i.code }}&startTime={{startTime}}&ipjipipijpijpijpijpoijpoijpoijpoijp=pijpoipoijpijpijp"> {{ i.title }}</a><br>
+    <td width="13%" align="left" valign="top">
+	
+	 {% for i in codes %}
+	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	  <tr>
+		<td><a href="/index/?code={{ i.code }}&startTime={{startTime}}&ip=pijp"> {{ i.title }}</a></td>
+		<td>{{ i.sim }}</td>
+	  </tr>
+	</table>
+
     {% endfor %} 
   <hr>
   <br/>
@@ -20,7 +29,7 @@
 
 
   </td>
-    <td width="89%" align="left" valign="top" style="overflow:auto">
+    <td width="87%" align="left" valign="top" style="overflow:auto">
 	<script type="text/javascript">
         function calcHeight(iframeElement){
             var the_height=  iframeElement.contentWindow.document.body.scrollHeight;
