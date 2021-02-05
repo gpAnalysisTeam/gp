@@ -65,7 +65,7 @@ def dayXSimilarity(templeteData):
 联合akshare_transaction_data.py
 """
 for j  in range(1,3):
-    data = [100+j*i*0.5 for i in range(1,10)]
+    data = [100+j*i*1 for i in range(1,10)]
     similarityValue = dayXSimilarity(data)
     title=['e1','e2','e3']
     title.extend(data)

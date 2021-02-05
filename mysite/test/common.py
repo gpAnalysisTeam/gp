@@ -47,3 +47,27 @@ def getBeforXDaysKData(code,days):
     data = [row['close'] for row in rows]
     data.reverse()
     return data
+
+def getTanslateDateByOneDay(code,day):
+    timeSteam= datetime.datetime.strptime(day,'%Y-%m-%d')
+    startTime  = int(time.mktime(timeSteam.timetuple()))
+    endTime = startTime+3600*24    
+
+    collection = connection[code]
+    query = {"pubtime":{'$gt':startTime,'$lt':endTime}}
+    rows = collection.find(query).sort([('pubtime', pymongo.ASCENDING)])
+    return rows
+    
+def coss():
+    collection = connection['cos']
+    myquery = {} 
+    codes = collection.find(myquery).sort([('sim', pymongo.DESCENDING)]) 
+    data=[]
+    for code in codes:
+        if 'name' in code.keys() and code['name'] !='':
+            code['title']=code['name']
+        if 'title' not in code.keys() and 'name' not in code.keys():
+            continue
+        dick={'title':code['title'],'code':code['code'],'sim':code['sim']}
+        data.append(dick)
+    return data

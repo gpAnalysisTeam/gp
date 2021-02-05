@@ -57,7 +57,7 @@ class gp():
                     task = int(x['aktask'])+1
                 else:
                     task=1
-                collection.update({'_id': ObjectId(x['_id'])},  {'$set': {"aktask": task}}) 
+                self.connection['codes'].update({'_id': ObjectId(x['_id'])},  {'$set': {"aktask": task}}) 
                 i+=1
                 print(i)
                 code = x['code'][2:]
@@ -101,7 +101,7 @@ class gp():
 
     def start_getpage_requests(self):
         collection = self.connection['cos']
-        tbs = collection.find({}).sort([('sim', pymongo.DESCENDING)]).limit(100)
+        tbs = collection.find({}).sort([('sim', pymongo.ASCENDING)]).limit(100)
         i = 0
         x1={}
         for x in tbs:
@@ -111,15 +111,15 @@ class gp():
                     task = int(x['task'])+1
                 else:
                     task=1
-                collection.update({'_id': ObjectId(x['_id'])},  {'$set': {"task": task}}) 
-                i+=1
-                print(i)
+                collection.update({'code': x['code']},  {'$set': {"task": task}}) 
+                i+=1                
                 code = x['code'][2:]
+                print(str(i)+"/"+code)
                 #set startdate
-                days = 10
+                days = 1
                 startStream = datetime.datetime.now() - datetime.timedelta(days)
 
-                for i in range(days+2):
+                for i in range(days+1):
                     try:
                         dateTime = (startStream+datetime.timedelta(i))
                         timeArray = dateTime.timetuple()
