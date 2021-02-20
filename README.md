@@ -30,6 +30,7 @@ Highly recommended to use [miniconda](https://conda.io/miniconda.html) for easie
 1,采集脚本：crontab/
 2,mysite ：dgango web,
     运行：cd /root/gp/mysite/;python3 /root/gp/mysite/manage.py runserver 0.0.0.0:8000 --noreload 
+3,各目录下按需写作README.TXT文件
 ```
 git 管理规则： 
 gp1.0表示大家的第一个版本，
