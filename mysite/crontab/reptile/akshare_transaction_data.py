@@ -44,7 +44,7 @@ class gp():
     def start_getK(self):
         #get_hist_data
         collection = self.connection['codes']
-        tbs = collection.find({"is_on":1}).sort([('aktask', pymongo.ASCENDING)]).limit(5500)
+        tbs = collection.find({"is_on":1}).sort([('aktask', pymongo.ASCENDING)]).limit(1000)
         i = 0
         x1={}
         # pro = ts.pro_api()
@@ -89,11 +89,15 @@ class gp():
                             if i  >=days:
                                 break               
                     except :
-                        collection.update({'_id': ObjectId(x['_id'])},  {'$set': {"aktask": (task-1)}}) 
+                        #collection.update({'_id': ObjectId(x['_id'])},  {'$set': {"aktask": (task-1)}}) 
                         print(x['code']+'error!')
                         continue
                 except :
-                    collection.update({'_id': ObjectId(x['_id'])},  {'$set': {"aktask": (task-1)}}) 
+                    if 'aktaskerror' in x.keys():
+                        aktaskerror = int(x['aktaskerror'])+1
+                    else:
+                        aktaskerror=1
+                    collection.update({'_id': ObjectId(x['_id'])},  {'$set': {"aktaskerror": (aktaskerror+1)}}) 
                     print(x['code']+'error!')
                     continue
         return True
@@ -116,7 +120,7 @@ class gp():
                 code = x['code'][2:]
                 print(str(i)+"/"+code)
                 #set startdate
-                days = 1
+                days = 5
                 startStream = datetime.datetime.now() - datetime.timedelta(days)
 
                 for i in range(days+1):
@@ -185,7 +189,8 @@ class gp():
 
 """
 Suggest:
-step1: test daysimilarycos.py
+step0 :this gp.start_getK
+step1: test daysimilarycos.py 
 step2: this start_getpage_requests
 step3 web show them
 """

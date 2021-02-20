@@ -12,8 +12,14 @@ from config import mongodbConfig
 import common as cm
 from collections import Counter
 
-
 from prettytable import PrettyTable
+
+"""
+描述：   指定模型；按匹配度高低显示；结果在命令行显示；结果在网页显示。
+是否已实现：已
+缺点：目前结果集保存在cos,主页已此为基础显示详情。
+"""
+
 # reload(sys)
 # sys.setdefaultencoding('utf8')
 db = pymongo.MongoClient(mongodbConfig.host,mongodbConfig.port)[mongodbConfig.dbname]
@@ -52,15 +58,15 @@ def cosine_similarity(x, y, norm=False):
 
 def day30similarity(templete):
     codes=cm.codes()
-    templeteData=cm.getBefor30DaysKData(templete)
+    patternData=cm.getBefor30DaysKData(templete)
     similarityValue = []
     for code in codes:
         if code['code']!=templete:
             codeXdada=cm.getBefor30DaysKData(code['code'])
-            if len(templeteData)!=len(codeXdada):
+            if len(patternData)!=len(codeXdada):
                 print(code['code'])
             else:
-                t= cosine_similarity(templeteData,codeXdada) 
+                t= cosine_similarity(patternData,codeXdada) 
                 similarityValue.append([code['title'],code['code'],t])
     similarityValue.sort(key = lambda similarityValue:similarityValue[1], reverse=True)
     return similarityValue
@@ -68,17 +74,17 @@ def day30similarity(templete):
 """
 计算一组数据与数据库中数据的相似结果 xdata similarity
 """
-def dayXSimilarity(templeteData):
-    days = len(templeteData)
+def dayXSimilarity(patternData):
+    days = len(patternData)
     codes=cm.codes()
     similarityValue = []
     for code in codes:
         codeXdada=cm.getBeforXDaysKData(code['code'],days)
-        if len(templeteData)!=len(codeXdada):
+        if len(patternData)!=len(codeXdada):
             continue
             #print("'"+code['code']+"',",end='')
         else:
-            t= cosine_similarity(templeteData,codeXdada) 
+            t= cosine_similarity(patternData,codeXdada) 
             similarityValue.append([code['title'],code['code'],t,codeXdada])
     similarityValue.sort(key = lambda x: x[2], reverse=True)
     return similarityValue
@@ -104,16 +110,17 @@ db['cos'].delete_many({})
 找到匹配模板的目标
 联合akshare_transaction_data.py
 """
-for j  in range(1,3):
-    data = [100+j*i*3 for i in range(1,10)]
-    #data = [100-j*i*3 for i in range(1,10)]
-    similarityValue = dayXSimilarity(data)
+for j  in range(1,2):
+    #设置模型进行匹配
+    patternData = [100+j*i*4 for i in range(1,10)]
+    #patternData = [100-j*i*3 for i in range(1,10)]
+    similarityValue = dayXSimilarity(patternData)
     title=['e1','e2','e3']
-    title.extend(data)
+    title.extend(patternData)
     table = PrettyTable(title)
     title=  map ( str ,title)
 
-    for row in similarityValue[:40]:
+    for row in similarityValue[:50]:
         test=[row[0],row[1],row[2]]
         test.extend(row[3])
         table.add_row(test)
@@ -125,6 +132,8 @@ for j  in range(1,3):
             # s = table.get_csv_string()
             # with open('./tmp/stable.csv','w+') as f:
             #     f.write(s)
+            #####
+            #html = table.get_html_string
     print("\ntotal analysis:"+str(len(similarityValue)))   
     print(table)
 
