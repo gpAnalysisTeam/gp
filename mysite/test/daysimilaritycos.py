@@ -113,23 +113,24 @@ db['cos'].delete_many({})
 """
 for j  in range(1,2):
     #设置模型进行匹配
-    patternData = [100+j*i*2+0.5*i for i in range(1,8)]
+    patternData = [100+j*i*2+0.1*i for i in range(1,17)]
     #patternData = [100-j*i*3 for i in range(1,10)]
-    similarityValue = dayXSimilarity(patternData)
+    #patternData = [101.1,100.2,100.3,100.4,101,102,103,104,105]
+    similarityValueBuf = dayXSimilarity(patternData)
     title=['e1','e2','e3']
     title.extend(patternData)
     table = PrettyTable(title)
     title=  map ( str ,title)
-    for item in similarityValue:
+    similarityValue=[]
+    for item in similarityValueBuf:
         ucName = p.get_initials(item[0], u'')
-        if ucName[:1]=='*' or ucName[:2]=='ST' :
-            similarityValue.remove(item)
+        if ucName[:1]=='*' or item[0][:1]=='*' or ucName[:2]=='ST' or item[0][:1]=='S'  :
             continue
         if min(item[3]) <=4:
-            similarityValue.remove(item)
             continue
+        similarityValue.append(item)
 
-    for row in similarityValue[:50]:
+    for row in similarityValue[:80]:
         test=[row[0],row[1],row[2]]
         test.extend(row[3])
         table.add_row(test)
@@ -151,7 +152,7 @@ for j  in range(1,2):
     query=[]
     for row in similarityValue[:20]:
         ucName = p.get_initials(row[0], u'')
-        if ucName[:1]=='*' or ucName[:2]=='ST' :
+        if ucName[:1]=='*' or ucName[:2]=='ST'  or row[0][:1]=='S' :
             continue
         s.append(f"export {ucName}=\"http://hq.sinajs.cn/list={row[1]}\"")
         query.append(f"/usr/bin/curl -s  \"${ucName}\" |/bin/awk -F , '"+"{print  $4  \"test2\" \"----\"  $11/1000 \"----\" $21/1000 \"%"+ucName+"net\" $2}'")

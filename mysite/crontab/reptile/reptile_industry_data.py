@@ -137,7 +137,7 @@ if __name__ == '__main__':
             print(i)
             #rid.start_getpage_requests()
             rid.systemSetIndustryCodes()
-            time.sleep(1)
+            time.sleep(1000)
     elif runtype=='onetimes':
         i=i+1
         print(i)

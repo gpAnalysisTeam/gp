@@ -1,5 +1,5 @@
 class sysConfig():
-        runWay = 'always'
+        runWay = 'onetimes'
         
        
 class mongodbConfig():
