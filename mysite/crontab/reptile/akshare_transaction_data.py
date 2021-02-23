@@ -44,8 +44,8 @@ class gp():
     def start_getK(self):
         #get_hist_data
         collection = self.connection['codes']
-        tbs = collection.find({"is_on":1}).sort([('aktask', pymongo.ASCENDING)]).limit(1000)
-        i = 0
+        tbs = collection.find({"is_on":1}).sort([('aktask', pymongo.ASCENDING)]).limit(2000)
+        j = 0
         x1={}
         # pro = ts.pro_api()
         for x in tbs:
@@ -58,8 +58,8 @@ class gp():
                 else:
                     task=1
                 self.connection['codes'].update({'_id': ObjectId(x['_id'])},  {'$set': {"aktask": task}}) 
-                i+=1
-                print(i)
+                j+=1
+                print(j)
                 code = x['code'][2:]
                 #set startdate 
                 try:
@@ -106,7 +106,7 @@ class gp():
     def start_getpage_requests(self):
         collection = self.connection['cos']
         tbs = collection.find({}).sort([('sim', pymongo.ASCENDING)]).limit(100)
-        i = 0
+        j = 0
         x1={}
         for x in tbs:
             tb=x['code']
@@ -116,9 +116,9 @@ class gp():
                 else:
                     task=1
                 collection.update({'code': x['code']},  {'$set': {"task": task}}) 
-                i+=1                
+                j+=1                
                 code = x['code'][2:]
-                print(str(i)+"/"+code)
+                print(str(j)+"/"+code)
                 #set startdate
                 days = 5
                 startStream = datetime.datetime.now() - datetime.timedelta(days)
@@ -196,12 +196,12 @@ step3 web show them
 """
 if __name__ == '__main__':
     gp = gp()    
-    gp.start_getpage_requests()
+    #gp.start_getpage_requests()
     #print("######start_getpage_requests complete")
     """
     renew kdata
     """
-    #gp.start_getK()
+    gp.start_getK()
     #print("######start_getK complete")
 
     """

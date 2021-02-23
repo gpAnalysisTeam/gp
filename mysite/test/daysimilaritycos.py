@@ -13,7 +13,7 @@ import common as cm
 from collections import Counter
 
 from prettytable import PrettyTable
-
+from xpinyin import Pinyin
 """
 描述：   指定模型；按匹配度高低显示；结果在命令行显示；结果在网页显示。
 是否已实现：已
@@ -24,6 +24,7 @@ from prettytable import PrettyTable
 # sys.setdefaultencoding('utf8')
 db = pymongo.MongoClient(mongodbConfig.host,mongodbConfig.port)[mongodbConfig.dbname]
 db.authenticate(mongodbConfig.username,mongodbConfig.password,mechanism='SCRAM-SHA-1') 
+p = Pinyin()
 
 def bit_product_sum(x, y):
     return sum([item[0] * item[1] for item in zip(x, y)])
@@ -133,9 +134,27 @@ for j  in range(1,2):
             # with open('./tmp/stable.csv','w+') as f:
             #     f.write(s)
             #####
-            #html = table.get_html_string
+            
+
     print("\ntotal analysis:"+str(len(similarityValue)))   
     print(table)
+    #set  do.sh 
+    s=[]
+    query=[]
+    for row in similarityValue[:20]:
+        ucName = p.get_initials(row[0], u'')
+        if ucName[:1]=='*' or ucName[:2]=='ST' :
+            continue
+        s.append(f"export {ucName}=\"http://hq.sinajs.cn/list={row[1]}\"")
+        query.append(f"/usr/bin/curl -s  \"${ucName}\" |/bin/awk -F , '"+"{print  $4  \"test2\" \"----\"  $11/1000 \"----\" $21/1000 \"%"+ucName+"net\" $2}'")
+    with open('/root/gp/do/gp.sh','w+') as f:
+        text = '\n'.join(s)
+        f.write(text)
+        f.close
+    with open('/root/gp/do/query.sh','w+') as f:
+        text = '\n'.join(query)
+        f.write(text)
+        f.close
 
 
 
