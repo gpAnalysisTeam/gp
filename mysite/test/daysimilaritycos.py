@@ -113,13 +113,21 @@ db['cos'].delete_many({})
 """
 for j  in range(1,2):
     #设置模型进行匹配
-    patternData = [100+j*i*4 for i in range(1,10)]
+    patternData = [100+j*i*2+0.5*i for i in range(1,8)]
     #patternData = [100-j*i*3 for i in range(1,10)]
     similarityValue = dayXSimilarity(patternData)
     title=['e1','e2','e3']
     title.extend(patternData)
     table = PrettyTable(title)
     title=  map ( str ,title)
+    for item in similarityValue:
+        ucName = p.get_initials(item[0], u'')
+        if ucName[:1]=='*' or ucName[:2]=='ST' :
+            similarityValue.remove(item)
+            continue
+        if min(item[3]) <=4:
+            similarityValue.remove(item)
+            continue
 
     for row in similarityValue[:50]:
         test=[row[0],row[1],row[2]]
