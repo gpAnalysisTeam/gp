@@ -80,6 +80,8 @@ def dayXSimilarity(patternData):
     codes=cm.codes()
     similarityValue = []
     for code in codes:
+        if 'total_mv' not in code.keys()  or  code['total_mv']<800000:
+            continue
         codeXdada=cm.getBeforXDaysKData(code['code'],days)
         if len(patternData)!=len(codeXdada):
             continue
@@ -113,7 +115,9 @@ db['cos'].delete_many({})
 """
 for j  in range(1,2):
     #设置模型进行匹配
-    patternData = [100+j*i*2+0.1*i for i in range(1,17)]
+    patternData=[]#101.01,100.02,100.03,100.04
+    patternExtendData = [100+j*i*2 for i in range(0,17)]
+    patternData.extend(patternExtendData)
     #patternData = [100-j*i*3 for i in range(1,10)]
     #patternData = [101.1,100.2,100.3,100.4,101,102,103,104,105]
     similarityValueBuf = dayXSimilarity(patternData)
@@ -124,13 +128,15 @@ for j  in range(1,2):
     similarityValue=[]
     for item in similarityValueBuf:
         ucName = p.get_initials(item[0], u'')
+        if  item[2]<0.97:
+            continue
         if ucName[:1]=='*' or item[0][:1]=='*' or ucName[:2]=='ST' or item[0][:1]=='S'  :
             continue
         if min(item[3]) <=4:
             continue
         similarityValue.append(item)
 
-    for row in similarityValue[:80]:
+    for row in similarityValue[:40]:
         test=[row[0],row[1],row[2]]
         test.extend(row[3])
         table.add_row(test)

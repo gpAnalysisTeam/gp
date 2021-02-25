@@ -27,6 +27,7 @@ def codes():
             if 'title' not in code.keys() and 'name' not in code.keys():
                 continue
             dick={'title':code['title'],'code':code['code']}
+            dick.update(code)
             data.append(dick)
         except :
             continue       

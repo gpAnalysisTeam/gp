@@ -16,7 +16,6 @@ from bson.objectid import ObjectId
 import uuid
 import json
 import datetime
-import pyecharts
 from config import mongodbConfig,sysConfig
 
 import akshare as ak
@@ -53,7 +52,7 @@ class gp():
             # continue
 
             if  'code' in x.keys() and x['code']  != "":
-                if 'aktask' in x.keys():
+                if 'aktask' in x.keys() and x['aktask']!=None:
                     task = int(x['aktask'])+1
                 else:
                     task=1
@@ -105,7 +104,7 @@ class gp():
 
     def start_getpage_requests(self):
         collection = self.connection['cos']
-        tbs = collection.find({}).sort([('sim', pymongo.ASCENDING)]).limit(100)
+        tbs = collection.find({}).sort([('sim', pymongo.DESCENDING)]).limit(100)
         j = 0
         x1={}
         for x in tbs:
@@ -120,7 +119,7 @@ class gp():
                 code = x['code'][2:]
                 print(str(j)+"/"+code)
                 #set startdate
-                days = 5
+                days = 2
                 startStream = datetime.datetime.now() - datetime.timedelta(days)
 
                 for i in range(days+1):
@@ -196,12 +195,12 @@ step3 web show them
 """
 if __name__ == '__main__':
     gp = gp()    
-    #gp.start_getpage_requests()
+    gp.start_getpage_requests()
     #print("######start_getpage_requests complete")
     """
     renew kdata
     """
-    gp.start_getK()
+    #gp.start_getK()
     #print("######start_getK complete")
 
     """
