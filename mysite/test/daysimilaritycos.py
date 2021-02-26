@@ -170,7 +170,7 @@ for j  in range(1,2):
     patternDataArr['3point_app01'].extend(patternExtendData)
 
     #model select
-    patternData = patternDataArr['2point']
+    patternData = patternDataArr['2point_app01']
     similarityValueBuf = dayXSimilarity(patternData)
     title=['e1','e2','e3']
     title.extend(patternData)

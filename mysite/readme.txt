@@ -4,4 +4,10 @@
 
 架构：
      数据库mongodb;
+
+运行：（注：数据有延时）
+    cd /root/gp/mysite/crontab/reptile; sh bash.sh
+输出：
+     1,计算与查看推荐列表： /root/gp/mysite/crontab/feature；python3 list.py
+     2, 实时查看1中数据：/root/gp/do; sh do.sh
      
