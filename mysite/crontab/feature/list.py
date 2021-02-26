@@ -8,10 +8,12 @@ from config import mongodbConfig,sysConfig
 import common as cm
 import datetime
 from prettytable import PrettyTable
+from xpinyin import Pinyin
 
 db = pymongo.MongoClient(mongodbConfig.host,mongodbConfig.port)[mongodbConfig.dbname]
 db.authenticate(mongodbConfig.username,mongodbConfig.password,mechanism='SCRAM-SHA-1') 
 coss = db['cos'].find().sort([('sim', pymongo.DESCENDING)]).limit(50) 
+p = Pinyin()
 
 def timestamp2string(timeStamp,format="%Y-%m-%d %H:%M"):
     try:
@@ -96,6 +98,7 @@ print(table)
 
 #special
 i=0
+similarityValue=[]
 for ltem in data:
     if ltem==None:
         continue
@@ -107,8 +110,36 @@ for ltem in data:
     i=i+1
     filterAr = value_list[3:27]
     avg = sum(filterAr) / len(filterAr)
-    if avg <170:
+    if avg <140:
         continue
     special.add_row(value_list)
+    similarityValue.append(value_list)
 print(special)
+
+s=[]
+query=[]
+fileGp='/root/gp/do/gp.sh'
+fileQuery='/root/gp/do/query.sh'
+listGPStr=open(fileGp).read()
+listQueryStr=open(fileQuery).read()
+for row in similarityValue[:20]:
+    ucName = p.get_initials(row[0], u'')
+
+    if ucName[:1]=='*' or ucName[:2]=='ST'  or row[0][:1]=='S' :
+        continue
+    
+    if ucName  not in listQueryStr:
+        query.append(f"/usr/bin/curl -s  \"${ucName}\" |/bin/awk -F , '"+"{print  $4  \"test2\" \"----\"  $11/1000 \"----\" $21/1000 \"%"+ucName+"net\" $2}'")
+    
+    if ucName  not in listGPStr:
+        s.append(f"export {ucName}=\"http://hq.sinajs.cn/list={row[1]}\"")
+    
+with open(fileGp,'a+') as f:
+    text = '\n'.join(s)
+    f.write('\n'+text)
+    f.close
+with open(fileQuery,'a+') as f:
+    text = '\n'.join(query)
+    f.write('\n'+text)
+    f.close
 

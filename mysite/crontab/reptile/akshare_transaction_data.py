@@ -194,14 +194,18 @@ step2: this start_getpage_requests
 step3 web show them
 """
 if __name__ == '__main__':
+    args=sys.argv[1:]
+    
     gp = gp()    
-    gp.start_getpage_requests()
-    #print("######start_getpage_requests complete")
     """
     renew kdata
     """
-    #gp.start_getK()
-    #print("######start_getK complete")
+    if '-k' in args:
+        gp.start_getK()
+        print("######start_getK complete")
+    if '-t' in args:
+        gp.start_getpage_requests()
+        print("######start_getpage_requests complete")
 
     """
     clear old kdata

@@ -1,20 +1,18 @@
-export SCYY="http://hq.sinajs.cn/list=sz300144"
-export SDLQ="http://hq.sinajs.cn/list=sz000498"
-export ZHYF="http://hq.sinajs.cn/list=sh601808"
-export HXDZ="http://hq.sinajs.cn/list=sh601231"
-export MDDQ="http://hq.sinajs.cn/list=sz000527"
 export XRHJ="http://hq.sinajs.cn/list=sz000598"
 export NJYX="http://hq.sinajs.cn/list=sh601009"
-export YGSＡ="http://hq.sinajs.cn/list=sz000429"
-export HYSH="http://hq.sinajs.cn/list=sz000703"
-export JXHK="http://hq.sinajs.cn/list=sh603885"
-export SLJD="http://hq.sinajs.cn/list=sh600258"
-export MTLY="http://hq.sinajs.cn/list=sh601677"
-export YGE="http://hq.sinajs.cn/list=sh600177"
-export SXYL="http://hq.sinajs.cn/list=sh601567"
-export TYZY="http://hq.sinajs.cn/list=sz002078"
-export gyyh="http://hq.sinajs.cn/list=sh601997"
-export SCLQ="http://hq.sinajs.cn/list=sh600039"
-export GXGF="http://hq.sinajs.cn/list=sh603599"
-export NFHK="http://hq.sinajs.cn/list=sh600029"
-export MNJK="http://hq.sinajs.cn/list=sz002044"
+
+export ZQL="http://hq.sinajs.cn/list=sh600138"
+export WMHB="http://hq.sinajs.cn/list=sh603568"
+
+
+
+export ZHYF="http://hq.sinajs.cn/list=sh601808"
+
+
+
+
+export JFGF="http://hq.sinajs.cn/list=sh600153"
+export LXHG="http://hq.sinajs.cn/list=sz000830"
+export QLS="http://hq.sinajs.cn/list=sh600720"
+
+

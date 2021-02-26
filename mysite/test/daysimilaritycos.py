@@ -115,11 +115,62 @@ db['cos'].delete_many({})
 """
 for j  in range(1,2):
     #设置模型进行匹配
-    patternData=[]#101.01,100.02,100.03,100.04
+    patternDataArr={}
+    """
+    模型1:2point
+    """
+    patternDataArr['2point']=[]#101.01,100.02,100.03,100.04
     patternExtendData = [100+j*i*2 for i in range(0,17)]
-    patternData.extend(patternExtendData)
-    #patternData = [100-j*i*3 for i in range(1,10)]
-    #patternData = [101.1,100.2,100.3,100.4,101,102,103,104,105]
+    patternDataArr['2point'].extend(patternExtendData)
+    """
+    模型2:3point
+    """
+    patternDataArr['3point']=[]
+    patternExtendData = [100+j*i*3 for i in range(0,14)]
+    patternDataArr['3point'].extend(patternExtendData)
+    """
+    模型3:4point
+    """
+    patternDataArr['4point']=[]
+    patternExtendData = [100+j*i*4 for i in range(0,15)]
+    patternDataArr['4point'].extend(patternExtendData)
+    """
+    模型4:5point
+    """
+    patternDataArr['5point']=[]
+    patternExtendData = [100+j*i*5 for i in range(0,15)]
+    patternDataArr['5point'].extend(patternExtendData)
+
+    """
+    模型5:6point
+    """
+    patternDataArr['6point']=[]
+    patternExtendData = [100+j*i*6 for i in range(0,13)]
+    patternDataArr['6point'].extend(patternExtendData)
+
+    """
+    模型11:1point_app01
+    """
+    patternDataArr['1point_app01']=[]
+    patternExtendData = [100+j*i*1+i*0.1 for i in range(0,13)]
+    patternDataArr['1point_app01'].extend(patternExtendData)
+
+    """
+    模型11:2point_app01
+    """
+    patternDataArr['2point_app01']=[]
+    patternExtendData = [100+j*i*2+i*0.1 for i in range(0,13)]
+    patternDataArr['2point_app01'].extend(patternExtendData)
+
+    """
+    模型12:3point_app01
+    """
+    patternDataArr['3point_app01']=[]
+    patternExtendData = [100+j*i*3+i*0.1 for i in range(0,13)]
+    patternDataArr['3point_app01'].extend(patternExtendData)
+
+    #model select
+    patternData = patternDataArr['2point']
     similarityValueBuf = dayXSimilarity(patternData)
     title=['e1','e2','e3']
     title.extend(patternData)
@@ -128,7 +179,7 @@ for j  in range(1,2):
     similarityValue=[]
     for item in similarityValueBuf:
         ucName = p.get_initials(item[0], u'')
-        if  item[2]<0.97:
+        if  item[2]<0.98:
             continue
         if ucName[:1]=='*' or item[0][:1]=='*' or ucName[:2]=='ST' or item[0][:1]=='S'  :
             continue
@@ -154,22 +205,7 @@ for j  in range(1,2):
     print("\ntotal analysis:"+str(len(similarityValue)))   
     print(table)
     #set  do.sh 
-    s=[]
-    query=[]
-    for row in similarityValue[:20]:
-        ucName = p.get_initials(row[0], u'')
-        if ucName[:1]=='*' or ucName[:2]=='ST'  or row[0][:1]=='S' :
-            continue
-        s.append(f"export {ucName}=\"http://hq.sinajs.cn/list={row[1]}\"")
-        query.append(f"/usr/bin/curl -s  \"${ucName}\" |/bin/awk -F , '"+"{print  $4  \"test2\" \"----\"  $11/1000 \"----\" $21/1000 \"%"+ucName+"net\" $2}'")
-    with open('/root/gp/do/gp.sh','w+') as f:
-        text = '\n'.join(s)
-        f.write(text)
-        f.close
-    with open('/root/gp/do/query.sh','w+') as f:
-        text = '\n'.join(query)
-        f.write(text)
-        f.close
+
 
 
 
