@@ -149,6 +149,13 @@ for j  in range(1,2):
     patternDataArr['6point'].extend(patternExtendData)
 
     """
+    模型9:10point
+    """
+    patternDataArr['10point']=[]
+    patternExtendData = [100+j*i*10 for i in range(0,13)]
+    patternDataArr['10point'].extend(patternExtendData)
+
+    """
     模型11:1point_app01
     """
     patternDataArr['1point_app01']=[]
@@ -170,7 +177,7 @@ for j  in range(1,2):
     patternDataArr['3point_app01'].extend(patternExtendData)
 
     #model select
-    patternData = patternDataArr['2point_app01']
+    patternData = patternDataArr['10point']
     similarityValueBuf = dayXSimilarity(patternData)
     title=['e1','e2','e3']
     title.extend(patternData)
