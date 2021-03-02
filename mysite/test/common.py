@@ -72,3 +72,18 @@ def coss():
         dick={'title':code['title'],'code':code['code'],'sim':code['sim']}
         data.append(dick)
     return data
+
+"""
+ 从一变量中产生cos模型
+ """
+def creteModelBySE(code,start,end):
+    collection = connection[code]
+    myquery = {"datetime":{'$gte':start},"datetime":{'$lte':end}}
+    rows = collection.find(myquery).sort([('datetime', pymongo.ASCENDING)])
+    data=[row['close'] for row in rows]
+    minNum = min(data)
+    R= round(100/minNum,4)
+    modelArr=[]
+    for v in data:
+        modelArr.append(round(R*v,2))
+    return modelArr
